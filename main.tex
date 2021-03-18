@@ -203,13 +203,21 @@
 
 % Input reader information below. The optional argument, which
 % comes first, goes on the second line before the name.
-\advisor[Thesis Advisor, Chair of Committee]
+\advisor[Thesis Advisor]
         {Olga Wodo}
         {Assistant Professor, Department of Materials Design and Innovation}
+        
+\readerone[Thesis Advisor]
+        {Krishna Rajan}
+        {Professor, Department of Materials Design and Innovation}
 
-\readerone[Committee Member]
-          {member}
-          {Professor of Department}
+\readertwo[Committee Member]
+          {Brue E Pitman}
+          {Professor, Department of Materials Design and Innovation}
+          
+\readerthree[External Committee Member]
+          {Jaroslaw Zola}
+          {Associate Professor, Department of Computer Science}          
 
 % Makes use of LaTeX's include facility. Add as many chapters
 % and appendices as you like.
@@ -261,7 +269,7 @@ Appendix-B/main%
 % Generates the committee page -- this is bound with your
 % thesis. If this is an baccalaureate honors thesis, then
 % comment out this line.
-% \psucommitteepage
+\psucommitteepage
 
 % Generates the Epigraph/Dedication. The first argument should
 % point to the file containing your Epigraph/Dedication and

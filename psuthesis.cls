@@ -885,7 +885,12 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \end{singlespace}
 }
 
-
+\newcommand{\thesiscommittee}[1]{%
+\begin{doublespace}
+    \input{#1}
+\end{doublespace}
+    \input{#1}
+}
 
 
 \newcommand{\Appendix}[1]{%
