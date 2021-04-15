@@ -1,0 +1,93 @@
+\section{Supplementary Information}
+\section{Basis functions of \(\mathcal{GP}\) function space representation}
+Suppose we want to model a function \(f\) based on some known values at the observed points~(training data). We use a non-linear transformation of input values~\(x\) given by \(\phi(x)\) and corresponding weights \(W\) to represent the parametric form of \(f\) as:
+
+\[ f(x) &= \phi(x)^{\top} W \]
+
+Using the \(\mathcal{GP}\) formulation, we assume that \(W\) are drawn from a Gaussian Process with zero mean and \(\Sigma_p\) covariance i.e. W\sim\(\mathcal{GP}\big(0,\Sigma_p\big)\). This results in a Gaussian distribution on the functions \( f\sim\mathcal{GP}\big( \mu(x), k(x,x') \big) \) which can be obtained using the following: 
+\begin{align*}
+    \mathbb{E}\big[f(x)\big] &= \mathbb{E}\big[\phi(x)^{\top}W\big] \\
+                     &= \phi(x)^{\top}\mathbb{E}\big[W\big] \\
+                     &= \mu(x)=0 \\
+    \mathbb{E}\big[f(x)f(x')^{\top}\big] 
+                    &=\mathbb{E}\big[\phi(x)^{\top}W(\phi(x)^{\top}W)^{\top}\big] \\
+                    &=\mathbb{E}\big[\phi(x)^{\top}WW^{\top}\phi(x)\big] \\
+                    &= \phi(x)^{\top}\mathbb{E}\big[WW^{\top}\big]\phi(x) \\
+                    &= \phi(x)^{\top}\Sigma_p\phi(x) \\
+                    &= k(x,x')
+\end{align*}
+where \(\mathbb{E}\big[. \big]\) denotes expectation. Above formulation implies that by defining \(k(x,x')\), we identify the corresponding basis functions of the function space representation.
+
+\subsection{Computing Model Evidence Using Laplacian Approximation}
+Traditionally, a $\mathcal{GP}$ model is defined using the marginal likelihood denoted \(p(\textbf{y}|\textbf{X},\theta,\mathcal{M})\). However, $\theta$ used in the marginal likelihood is itself a model parameter which needs to be marginalized. In Bayesian model selection realm, it is common to use model evidence which is marginal likelihood of a $\mathcal{GP}$ model marginalized over $\theta$ i.e. \[\text{Model Evidence:} \quad p(\textbf{y}|\textbf{X},\mathcal{M})=\int p(\textbf{y}|\textbf{X},\theta,\mathcal{M})p(\theta|\mathcal{M}) \diff{\theta}.\] 
+Marginal likelihood is a special case of Bayesian model evidence with \[p(\theta|\mathcal{M})=\delta(\hat{\theta}), \hat{\theta}=\argmax_{\theta} \log p(\theta|\mathcal{D},\mathcal{M}). \] \[p(\theta|\mathcal{D},\mathcal{M})=p(\textbf{y}|\textbf{X},\theta,\mathcal{M})p(\theta|\mathcal{M})\]
+This is equivalent to saying that the model exits only at one parameter space i.e. \(\theta=\hat{\theta}\). Marginal likelihood estimation (MLE) or Maximum a-posteriori (MAP) estimates are used to select a $\hat{\theta}$~\cite{gardner2015bayesian}.
+A common approach is to approximate model evidence using Laplacian approximation. We give the details of the approximation here for completeness.
+Since $\hat{\theta}$ is a maxima of \(p(\theta|\mathcal{D},\mathcal{M})\), it is also maxima of its log PDF \[q(\theta)=\log(p(\theta|\mathcal{D},\mathcal{M}))\]
+Making a Taylor series approximation over $\hat{\theta}$, we get \[q(\theta)\approx q(\hat{\theta})+(\theta-\hat{\theta})\dot q(\hat{\theta})+\frac{1}{2}(\theta-\hat{\theta})^{2}\ddot q(\hat{\theta})\]
+Noting \(\dot q(\hat{\theta})=0\), we get \[q(\theta)\approx \text{Constant} +\frac{(\theta-\hat{\theta})^{2}}{2 (\ddot q(\hat{\theta}))^{-1}} \] 
+This is equivalent to approximating \[ p(\theta|\mathcal{D},\mathcal{M})\sim \mathcal{N}(\hat{\theta},-\nabla^{2} \log p(\theta|\mathcal{D},\mathcal{M})\vert_{\hat{\theta}})\]
+% A Laplacian approximation to the theta posterior around $\hat{\theta}$ as a mode results in the following: \[ p(\theta|\mathcal{D},\mathcal{M})\sim \mathcal{N}(\hat{\theta},-\nabla^{2} \log p(\theta|\mathcal{D},\mathcal{M})\vert_{\hat{\theta}}). \]
+This will also result in an approximation to model evidence : 
+\begin{align*}
+   p(\textbf{y}|\textbf{X},\mathcal{M}) &= \int \exp \log  p(\theta|\mathcal{D},\mathcal{M})\diff{\theta} \\
+   & \approx \int \exp \Bigg( q(\hat{\theta}) +\frac{(\theta-\hat{\theta})^{2}}{2 (\ddot q(\hat{\theta}))^{-1}}\Bigg)\diff{\theta}; \quad q(\theta)=p(\theta|\mathcal{D},\mathcal{M}) \\ 
+   & = \exp(q(\hat{\theta}))\int \mathcal{N}\Big(\hat{\theta},A=-\ddot q(\hat{\theta})^{-1}\Big)\diff{\theta} \\
+   & = p(\hat{\theta}|\mathcal{D},\mathcal{M})(2\pi)^{\frac{d}{2}}|A|^{-\frac{1}{2}} \\
+   & = p(\mathcal{D} | \hat{\theta}, \mathcal{M})p(\hat{\theta} | \mathcal{M})(2\pi)^{\frac{d}{2}}|A|^{-\frac{1}{2}} \\
+    & = p(\textbf{y} | \textbf{X}, \hat{\theta}, \mathcal{M})p(\hat{\theta} | \mathcal{M})(2\pi)^{\frac{d}{2}}|A|^{-\frac{1}{2}} \\
+\end{align*}
+{We typically compute the log-probability:}
+\begin{align*}
+  \log p(\textbf{y}|\textbf{X},\mathcal{M}) \approx \log p(\textbf{y}|\textbf{X},\mathcal{M},\hat{\theta}) + \log p(\hat{\theta}|\mathcal{M}) \\
+  + \frac{d}{2}\log(2\pi) -\frac{1}{2}\log(|A|)  
+\end{align*}
+Recall that commonly used Bayesian information criteria (BIC) is a special case of Laplacian approximation to model evidence. BIC assumes that number of trained samples \(N\rightarrow \infty \) giving rise to:
+\begin{align*}
+    \text{\textbf{BIC:}}  \log p(\textbf{y}|\textbf{X},\mathcal{M}) \approx \log p(\textbf{y}|\textbf{X},\mathcal{M},\hat{\theta}) - \frac{d}{2}\log(N)
+\end{align*}
+
+\subsubsection{Computing Hessian's of $\mathcal{GP}$ models}
+Computing model evidence using a Laplacian approximation requires one to compute Hessian's of $\mathcal{GP}$ models with respect to parameter index $\theta$. 
+In this work, we use A MATLAB code to compute Hessian's at the model $\hat{\theta}$ given the Hessian's of $\mathcal{GP}$ models that has been previously published\footnote{\url{https://github.com/rmgarnett/gpml_extensions}}. Mean function models used in this study are zero thus have trivial Hessian's. Hessian's of  covariance models used in this study can be computed analytically which we report here. We note that Hessian for a squared exponential covariance has been already incorporated in the MATLAB code published by Garnett et al, thus we only report on Hessian for Neural Network covariance model used. For mathematical convenience, we denote the covariance in~\cref{eq:covNNone} using $K$ with the parameter index being \(\theta=[\theta_1=\lambda ; \theta_2=\sigma_f^{2} ]\) where \( \Lambda=\lambda I\). The Hessian of $K$ w.r.t $\theta$ would then be:
+\[
+\begin{bmatrix} 
+\pdv[2]{K}{\theta_1} & \pdv{K}{\theta_1}{\theta_2} \\
+\pdv{K}{\theta_2}{\theta_1} & \pdv[2]{K}{\theta_2} 
+\end{bmatrix}
+\]
+\begin{align*}
+    \pdv[2]{K}{\theta_1} & = -\lambda \sigma_{f}^{2}\Big(2\lambda XY + \lambda^2 Y\pdv{X}{\lambda} + \lambda^2 X\pdv{Y}{\lambda} \Big) \\
+    \pdv{K}{\theta_1}{\theta_2} & = 2\lambda \sigma_{f}^{2}\frac{1}{\sqrt{1-a^2}}\pdv{a}{\lambda} \\
+    \pdv[2]{K}{\theta_2} & =4K \\
+    \newline
+    \pdv{a}{\lambda}(x_p,x_q) & = -\lambda a\Big( \frac{1}{1+\lambda^{2}+x^{T}_{p} x_{p}} + \frac{1}{1+\lambda^{2}+x^{T}_q x_q}\Big) \\
+    \pdv{X}{\lambda} & = -2\lambda\Big(\frac{1}{(1+\lambda^{2}+x^{T}_{p} x_{p})^2} + \frac{1}{(1+\lambda^{2}+x^{T}_q x_q)^2}\Big) \\
+    X & = \frac{a}{\sqrt{1-a^2}} \\
+    Y & = \frac{1}{1+\lambda^{2}+x^{T}_{p} x_{p}} + \frac{1}{1+\lambda^{2}+x^{T}_q x_q} \\
+    a & = \frac{1+x^{T}_px_q}{\sqrt{1+\lambda^{2}+x^{T}_{p} x_{p}}\sqrt{1+\lambda^{2}+x^{T}_q x_q}} \\
+\end{align*}
+
+\subsection{Computing Model Posterior}
+Once we have computed model evidence using the tools introduced in earlier sections, we can compute the model posterior $p(\mathcal{M}\vert \mathcal{D})$ which signifies the probability of a model $\mathcal{M}$ being the correct model given the data $\mathcal{D}$. Taking the logarithm of~\Cref{eq:postM} we get for model $\mathcal{M}_j,j\in \{1,2,...,m\}$. 
+\newline
+
+\begin{align*}
+    \log p(\mathcal{M}_j\vert \mathcal{D}) & = \log \Big(p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_j)p(\mathcal{M}_j) \Big) \\
+    & -  \log \sum_{i=1}^{m}\Big(p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_i)p(\mathcal{M}_i) \Big) \\
+    \log \sum_{i=1}^{m}\Big(p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_i)p(\mathcal{M}_i) \Big) & = \log \Big( p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_j)p(\mathcal{M}_j) \Big) \\ & + \log \Big[ 1+ \sum_{i\neq j}^{m-1}\frac{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_i)p(\mathcal{M}_i)}{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_j)p(\mathcal{M}_j)} \Big] \\
+    \log p(\mathcal{M}_j\vert \mathcal{D}) & = -\log \Big[ 1+ \sum_{i\neq j}^{m-1}\frac{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_i)p(\mathcal{M}_i)}{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_j)p(\mathcal{M}_j)} \Big] \\
+    \quad p(\mathcal{M}) &= 1/m ~(\text{Assuming uniform distribution for the models}) \\
+    \log p(\mathcal{M}_j\vert \mathcal{D}) & = -\log \Big[ 1+ \sum_{i\neq j}^{m-1}\frac{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_i)}{p(\textbf{y}\vert\textbf{
+    X},\mathcal{M}_j)} \Big] \\
+\end{align*}
+

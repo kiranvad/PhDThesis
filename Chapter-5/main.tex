@@ -1,25 +1,27 @@
 \chapter{Conclusion}\label{Chapter 5}
-The goal of the thesis has been to evaluate the use of data representations for application of machine learning to material discovery.
-We introduced a distance measure learning approach into the data analytics for compositional libraries. 
+The primary goal of this thesis is to evaluate the use of data representations for application of machine learning to material discovery.
+Towards this goal, three case studies with different objectives in terms of the down-stream data analysis/machine learning tasks are shown in this thesis. 
+First case study described in Section~\ref{chapter2} involved studying the similarity(distance) measure used in the tasks of partitioning a grid of materials based on signaled data.
+A distance measure learning approach is introduced into the data analytics for compositional libraries to account for compositional continuity of spectral data collected on a grid. 
 A metric was learned from the data while leveraging the composition information about the design space. 
 This is in contrast to the exhaustive search of distance measure and provides a automated way of selecting a metric.
-We demonstrated the robustness of this approach for two case studies. 
-First, we evaluated the framework using synthetically generated data sets of cyclic voltammetry measurements. 
-Next, we applied the framework to labeled XRD data and constructed the phase diagram.
-We showed that our method has the ability to identify regions in the design space where a systematic variation in design variable gives rise to systematic variation in response. 
-Using a model electrochemistry data, we showed that a distance measure learned using our approach is at least as good as the metric chosen using an exhaustive search.
-Through various test cases, we have shown that learning a similarity measure using MT-LMNN has the ability to automatically quantify the similarity measure for any given data set. This makes MT-LMNN a better alternative to an exhaustive search of complex and data specific metrics as well as a promising approach for automated distance learning for compositional libraries. 
+The robustness of this approach was demonstrated using two case studies. 
+First, the framework is evaluated using synthetically generated data sets of cyclic voltammetry measurements. 
+Next, the framework is applied to XRD data to construct the phase diagram in an automated fashion and compare it to expert labelled phase diagram.
+The method was able to identify regions in the design space where a systematic variation in design variable gives rise to systematic variation in response.
+The proposed method is at least as good as the metric chosen using an exhaustive search.
+The case studies also shows that the proposed approach has the ability to automatically quantify the similarity measure signaled data collected for compositional libraries. 
 
 
-In the second research task, we defined and evaluated a \(\mathcal{GP}\)-based oracle for materials discovery using cyclic voltammetry.
-Next, we combined the oracle with a state-of-the-art active batch search to identify condition resulting in the targeted shape of CV curve. 
-We demonstrated a robust high throughput combinatorial search to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search (with a discrete sampling of modest 5 levels per dimension). 
+In the second research task in Section~\ref{chapter3}, a \(\mathcal{GP}\)-based oracle for materials discovery using cyclic voltammetry was defined and evaluated.
+Next, the oracle was combined with a state-of-the-art active batch search to identify condition resulting in the targeted shape of CV curve. 
+A high throughput combinatorial search was demonstrated to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search (with a discrete sampling of modest 5 levels per dimension). 
 This work has implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
-Specifically, we have illustrated a framework that can be used to identify S-shaped CV curves. 
+Specifically,the illustrated framework can be used to identify S-shaped CV curves. 
 Once S-shaped CV curve is obtained, a foot of the wave analysis can be applied ~\cite{FOWA} to extract rate constant for rate determining step, overpotential dependent turn over frequency etc.
-In this sense our method has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
+In this sense the proposed method has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
 
 
-As a third case study, we described a data exploratory analysis for phase diagram generation with the capabilities to evaluate for physical and computational accuracy. 
-We use a data-analysis pipeline to perform initial screening of materials to identify subgroups there by decreasing the number of samples to be studied by an expert.
-We apply our methodology on two sets of material systems and provide a framework to derive design rules for solvent selection in OSC manufacturing.
+As a third case study, a data exploratory analysis is described in Section~\ref{chapter4} for phase diagram generation with the capabilities to evaluate for physical and computational accuracy. 
+A data-analysis pipeline is used to perform initial screening of materials to identify subgroups there by decreasing the number of samples to be studied by an expert.
+Applying the methodology to two sets of material systems to demonstrate the derivation of design rules for solvent selection in OSC manufacturing.

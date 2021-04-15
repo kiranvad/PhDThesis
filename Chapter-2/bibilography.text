@@ -1,0 +1,652 @@
+@article{sklearn,
+  title={Scikit-learn: Machine learning in Python},
+  author={Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and others},
+  journal={the Journal of machine Learning research},
+  volume={12},
+  pages={2825--2830},
+  year={2011},
+  publisher={JMLR. org}
+}
+@inproceedings{caruana2006meta,
+  title={Meta clustering},
+  author={Caruana, Rich and Elhawary, Mohamed and Nguyen, Nam and Smith, Casey},
+  booktitle={Sixth International Conference on Data Mining (ICDM'06)},
+  pages={107--118},
+  year={2006},
+  organization={IEEE}
+}
+
+
+@inproceedings{santos2009use,
+  title={On the use of the adjusted rand index as a metric for evaluating supervised classification},
+  author={Santos, Jorge M and Embrechts, Mark},
+  booktitle={International conference on artificial neural networks},
+  pages={175--184},
+  year={2009},
+  organization={Springer}
+}
+@article{hubert1985comparing,
+  title={Comparing partitions},
+  author={Hubert, Lawrence and Arabie, Phipps},
+  journal={Journal of classification},
+  volume={2},
+  number={1},
+  pages={193--218},
+  year={1985},
+  publisher={Springer}
+}
+@article{strehl2002cluster,
+  title={Cluster ensembles---a knowledge reuse framework for combining multiple partitions},
+  author={Strehl, Alexander and Ghosh, Joydeep},
+  journal={Journal of machine learning research},
+  volume={3},
+  number={Dec},
+  pages={583--617},
+  year={2002}
+}
+@article{vinh2010information,
+  title={Information theoretic measures for clusterings comparison: Variants, properties, normalization and correction for chance},
+  author={Vinh, Nguyen Xuan and Epps, Julien and Bailey, James},
+  journal={Journal of Machine Learning Research},
+  volume={11},
+  number={Oct},
+  pages={2837--2854},
+  year={2010}
+}
+@article{fowlkes1983method,
+  title={A method for comparing two hierarchical clusterings},
+  author={Fowlkes, Edward B and Mallows, Colin L},
+  journal={Journal of the American statistical association},
+  volume={78},
+  number={383},
+  pages={553--569},
+  year={1983},
+  publisher={Taylor \& Francis Group}
+}
+@inproceedings{franccois2005non,
+  title={Non-Euclidean metrics for similarity search in noisy datasets.},
+  author={Fran{\c{c}}ois, Damien and Wertz, Vincent and Verleysen, Michel and others},
+  booktitle={ESANN},
+  pages={339--344},
+  year={2005}
+}
+@article{powers2015f,
+  title={What the F-measure doesn't measure: Features, Flaws, Fallacies and Fixes},
+  author={Powers, David MW},
+  journal={arXiv preprint arXiv:1503.06410},
+  year={2015}
+}
+@article{vinh2010information,
+  title={Information theoretic measures for clusterings comparison: Variants, properties, normalization and correction for chance},
+  author={Vinh, Nguyen Xuan and Epps, Julien and Bailey, James},
+  journal={Journal of Machine Learning Research},
+  volume={11},
+  number={Oct},
+  pages={2837--2854},
+  year={2010}
+}
+@article{fowlkes1983method,
+  title={A method for comparing two hierarchical clusterings},
+  author={Fowlkes, Edward B and Mallows, Colin L},
+  journal={Journal of the American statistical association},
+  volume={78},
+  number={383},
+  pages={553--569},
+  year={1983},
+  publisher={Taylor \& Francis Group}
+}
+@article{manning2010introduction,
+  title={Introduction to information retrieval},
+  author={Manning, Christopher and Raghavan, Prabhakar and Sch{\"u}tze, Hinrich},
+  journal={Natural Language Engineering},
+  volume={16},
+  number={1},
+  pages={100--103},
+  year={2010},
+  publisher={Cambridge university press}
+}
+@inproceedings{santos2009use,
+  title={On the use of the adjusted rand index as a metric for evaluating supervised classification},
+  author={Santos, Jorge M and Embrechts, Mark},
+  booktitle={International conference on artificial neural networks},
+  pages={175--184},
+  year={2009},
+  organization={Springer}
+}
+@article{hubert1985comparing,
+  title={Comparing partitions},
+  author={Hubert, Lawrence and Arabie, Phipps},
+  journal={Journal of classification},
+  volume={2},
+  number={1},
+  pages={193--218},
+  year={1985},
+  publisher={Springer}
+}
+@article{strehl2002cluster,
+  title={Cluster ensembles---a knowledge reuse framework for combining multiple partitions},
+  author={Strehl, Alexander and Ghosh, Joydeep},
+  journal={Journal of machine learning research},
+  volume={3},
+  number={Dec},
+  pages={583--617},
+  year={2002}
+}
+@article{vinh2010information,
+  title={Information theoretic measures for clusterings comparison: Variants, properties, normalization and correction for chance},
+  author={Vinh, Nguyen Xuan and Epps, Julien and Bailey, James},
+  journal={Journal of Machine Learning Research},
+  volume={11},
+  number={Oct},
+  pages={2837--2854},
+  year={2010}
+}
+@article{fowlkes1983method,
+  title={A method for comparing two hierarchical clusterings},
+  author={Fowlkes, Edward B and Mallows, Colin L},
+  journal={Journal of the American statistical association},
+  volume={78},
+  number={383},
+  pages={553--569},
+  year={1983},
+  publisher={Taylor \& Francis Group}
+}
+@article{powers2015f,
+  title={What the F-measure doesn't measure: Features, Flaws, Fallacies and Fixes},
+  author={Powers, David MW},
+  journal={arXiv preprint arXiv:1503.06410},
+  year={2015}
+}
+
+@article{bunn2016semi,
+  title={Semi-Supervised approach to phase identification from combinatorial sample diffraction patterns},
+  author={Bunn, Jonathan Kenneth and Hu, Jianjun and Hattrick-Simpers, Jason R},
+  journal={JOM},
+  volume={68},
+  number={8},
+  pages={2116--2125},
+  year={2016},
+  publisher={Springer}
+}
+
+@inproceedings{bras2010computational,
+  title={Computational thinking for material discovery: bridging constraint reasoning and learning},
+  author={Bras, RL and Damoulas, Theodoros and Gregoire, John M and Sabharwal, Ashish and Gomes, CP and Dover, RBV},
+  booktitle={CROCS 2010-2nd International Workshop on Constraint Reasoning and Optimization for Computational Sustainability},
+  year={2010}
+}
+
+@article{hernandez2016using,
+  title={Using similarity metrics to quantify differences in high-throughput data sets: application to X-ray diffraction patterns},
+  author={Hernandez-River, E. and Coleman, S. P. and Tschopp, M. A.},
+  journal={ACS combinatorial science},
+  volume={19},
+  number={1},
+  pages={25--36},
+  year={2016},
+  publisher={ACS Publications}
+}
+
+@article{bellman1961curse,
+  title={Curse of dimensionality},
+  author={Bellman, R},
+  journal={Adaptive control processes: a guided tour. Princeton, NJ},
+  year={1961}
+}
+
+
+@inproceedings{weinberger2006distance,
+  title={Distance metric learning for large margin nearest neighbor classification},
+  author={Weinberger, Kilian Q and Blitzer, John and Saul, Lawrence K},
+  booktitle={Advances in neural information processing systems},
+  pages={1473--1480},
+  year={2006}
+}
+
+@article{suram2015generating,
+  title={Generating information-rich high-throughput experimental materials genomes using functional clustering via multitree genetic programming and information theory},
+  author={Suram, Santosh K and Haber, Joel A and Jin, Jian and Gregoire, John M},
+  journal={ACS combinatorial science},
+  volume={17},
+  number={4},
+  pages={224--233},
+  year={2015},
+  publisher={ACS Publications}
+}
+@article{haber2014high,
+  title={High-Throughput Mapping of the Electrochemical Properties of (Ni-Fe-Co-Ce) Ox Oxygen-Evolution Catalysts},
+  author={Haber, Joel A and Xiang, Chengxiang and Guevarra, Dan and Jung, Suho and Jin, Jian and Gregoire, John M},
+  journal={ChemElectroChem},
+  volume={1},
+  number={3},
+  pages={524--528},
+  year={2014},
+  publisher={Wiley Online Library}
+}
+@article{rajan2005materials,
+  title={Materials informatics},
+  author={Rajan, Krishna},
+  journal={Materials Today},
+  volume={8},
+  number={10}, 
+23
+
+  pages={38--45},
+  year={2005},
+  publisher={Elsevier}
+}
+@inproceedings{ng2002spectral,
+  title={On spectral clustering: Analysis and an algorithm},
+  author={Ng, Andrew Y and Jordan, Michael I and Weiss, Yair},
+  booktitle={Advances in neural information processing systems},
+  pages={849--856},
+  year={2002}
+}
+@article{tenenbaum2000global,
+  title={A global geometric framework for nonlinear dimensionality reduction},
+  author={Tenenbaum, Joshua B and De Silva, Vin and Langford, John C},
+  journal={science},
+  volume={290},
+  number={5500},
+  pages={2319--2323},
+  year={2000},
+  publisher={American Association for the Advancement of Science}
+}
+@inproceedings{weinberger2006introduction,
+  title={An introduction to nonlinear dimensionality reduction by maximum variance unfolding},
+  author={Weinberger, Kilian Q and Saul, Lawrence K},
+  booktitle={AAAI},
+  volume={6},
+  pages={1683--1686},
+  year={2006}
+}
+@incollection{greeley2011computational,
+  title={Computational high-throughput screening of electrocatalytic materials for hydrogen evolution},
+  author={Greeley, Jeff and Jaramillo, Thomas F and Bonde, Jacob and Chorkendorff, IB and N{\o}rskov, Jens K},
+  booktitle={Materials For Sustainable Energy: A Collection of Peer-Reviewed Research and Review Articles from Nature Publishing Group},
+  pages={280--284},
+  year={2011},
+  publisher={World Scientific}
+}
+@article{gupta2009identification,
+  title={Identification of selective inhibitors of cancer stem cells by high-throughput screening},
+  author={Gupta, Piyush B and Onder, Tamer T and Jiang, Guozhi and Tao, Kai and Kuperwasser, Charlotte and Weinberg, Robert A and Lander, Eric S},
+  journal={Cell},
+  volume={138},
+  number={4},
+  pages={645--659},
+  year={2009},
+  publisher={Elsevier}
+}
+@article{kirsten2004strategies,
+  title={Strategies for the discovery of new catalysts with combinatorial chemistry},
+  author={Kirsten, Guido and Maier, Wilhelm F},
+  journal={Applied surface science},
+  volume={223},
+  number={1-3},
+  pages={87--101},
+  year={2004},
+  publisher={Elsevier}
+}
+@article{goldsmith2018machine,
+  title={Machine learning for heterogeneous catalyst design and discovery},
+  author={Goldsmith, Bryan R and Esterhuizen, Jacques and Liu, Jin-Xun and Bartel, Christopher J and Sutton, Christopher},
+  journal={AIChE Journal},
+  volume={64},
+  number={7},
+  pages={2311--2323},
+  year={2018},
+  publisher={Wiley Online Library}
+}
+@article{strasser2008combinatorial,
+  title={Combinatorial optimization of ternary Pt alloy catalysts for the electrooxidation of methanol},
+  author={Strasser, Peter},
+  journal={Journal of combinatorial chemistry},
+  volume={10},
+  number={2},
+  pages={216--224},
+  year={2008},
+  publisher={ACS Publications}
+}
+@inproceedings{angra2017machine,
+  title={Machine learning and its applications: a review},
+  author={Angra, Sheena and Ahuja, Sachin},
+  booktitle={Big Data Analytics and Computational Intelligence (ICBDAC), 2017 International Conference on},
+  pages={57--60},
+  year={2017},
+  organization={IEEE}
+}
+@article{das2015applications,
+  title={Applications of artificial intelligence in machine learning: review and prospect},
+  author={Das, Sumit and Dey, Aritra and Pal, Akash and Roy, Nabamita},
+  journal={International Journal of Computer Applications},
+  volume={115},
+  number={9},
+  year={2015},
+  publisher={Citeseer}
+}
+@article{pilania2013accelerating,
+  title={Accelerating materials property predictions using machine learning},
+  author={Pilania, Ghanshyam and Wang, Chenchen and Jiang, Xun and Rajasekaran, Sanguthevar and Ramprasad, Ramamurthy},
+  journal={Scientific reports},
+  volume={3},
+  pages={2810},
+  year={2013},
+  publisher={Nature Publishing Group}
+}
+@article{arnold2001combinatorial,
+  title={Combinatorial and computational challenges for biocatalyst design},
+  author={Arnold, Frances H},
+  journal={Nature},
+  volume={409},
+  number={6817},
+  pages={253},
+  year={2001},
+  publisher={Nature Publishing Group}
+}
+@inproceedings{lane1997application,
+  title={An application of machine learning to anomaly detection},
+  author={Lane, Terran and Brodley, Carla E},
+  booktitle={Proceedings of the 20th National Information Systems Security Conference},
+  volume={377},
+  pages={366--380},
+  year={1997},
+  organization={Baltimore, USA}
+}
+@article{santini1999similarity,
+  title={Similarity measures},
+  author={Santini, Simone and Jain, Ramesh},
+  journal={IEEE Transactions on pattern analysis and machine Intelligence},
+  volume={21},
+  number={9},
+  pages={871--883},
+  year={1999},
+  publisher={IEEE}
+}
+@inproceedings{aggarwal2001surprising,
+  title={On the surprising behavior of distance metrics in high dimensional space},
+  author={Aggarwal, Charu C and Hinneburg, Alexander and Keim, Daniel A},
+  booktitle={International conference on database theory},
+  pages={420--434},
+  year={2001},
+  organization={Springer}
+}
+@article{iwasaki2017comparison,
+  title={Comparison of dissimilarity measures for cluster analysis of X-ray diffraction data from combinatorial libraries},
+  author={Iwasaki, Yuma and Kusne, A Gilad and Takeuchi, Ichiro},
+  journal={npj Computational Materials},
+  volume={3},
+  number={1},
+  pages={4},
+  year={2017},
+  publisher={Nature Publishing Group}
+}
+@article{hattrick2016perspective,
+  title={Perspective: Composition--structure--property mapping in high-throughput experiments: Turning data into knowledge},
+  author={Hattrick-Simpers, Jason R and Gregoire, John M and Kusne, A Gilad},
+  journal={APL Materials},
+  volume={4},
+  number={5},
+  pages={053211},
+  year={2016},
+  publisher={AIP Publishing}
+}
+
+@inproceedings{parameswaran2010large,
+  title={Large margin multi-task metric learning},
+  author={Parameswaran, Shibin and Weinberger, Kilian Q},
+  booktitle={Advances in neural information processing systems},
+  pages={1867--1875},
+  year={2010}
+}
+
+@article{xiong2017automated,
+  title={Automated phase segmentation for large-scale X-ray diffraction data using a graph-based phase segmentation (GPhase) algorithm},
+  author={Xiong, Zheng and He, Yinyan and Hattrick-Simpers, Jason R and Hu, Jianjun},
+  journal={ACS combinatorial science},
+  volume={19},
+  number={3},
+  pages={137--144},
+  year={2017},
+  publisher={ACS Publications}
+}
+
+@inproceedings{zelnik2005self,
+  title={Self-tuning spectral clustering},
+  author={Zelnik-Manor, Lihi and Perona, Pietro},
+  booktitle={Advances in neural information processing systems},
+  pages={1601--1608},
+  year={2005}
+}
+@article{Kusne2015HighthroughputDO,
+  title={High-throughput determination of structural phase diagram and constituent phases using GRENDEL.},
+  author={Aaron Gilad Kusne and D Keller and Andrew Anderson and Arie Zaban and Ichiro Takeuchi},
+  journal={Nanotechnology},
+  year={2015},
+  volume={26 44},
+  pages={444002}
+}
+@inproceedings{kedem2012non,
+  title={Non-linear metric learning},
+  author={Kedem, Dor and Tyree, Stephen and Sha, Fei and Lanckriet, Gert R and Weinberger, Kilian Q},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={2573--2581},
+  year={2012}
+}
+@article{long2007rapid,
+  title={Rapid structural mapping of ternary metallic alloy systems using the combinatorial approach and cluster analysis},
+  author={Long, CJ and Hattrick-Simpers, J and Murakami, Makoto and Srivastava, RC and Takeuchi, Ichiro and Karen, Vicky L and Li, X},
+  journal={Review of Scientific Instruments},
+  volume={78},
+  number={7},
+  pages={072217},
+  year={2007},
+  publisher={AIP}
+}
+@article{wang2015survey,
+  title={Survey on distance metric learning and dimensionality reduction in data mining},
+  author={Wang, Fei and Sun, Jimeng},
+  journal={Data Mining and Knowledge Discovery},
+  volume={29},
+  number={2},
+  pages={534--564},
+  year={2015},
+  publisher={Springer}
+}
+@article{bernstein2014computational,
+  title={A computational challenge problem in materials discovery: Synthetic problem generator and real-world datasets},
+  author={Bernstein, Ronan Le Bras Richard and Suram, John M Gregoire Santosh K and Selman, Carla P Gomes Bart and van Dover, R Bruce},
+  year={2014}
+}
+@book{friedman2001elements,
+  title={The elements of statistical learning},
+  author={Friedman, Jerome and Hastie, Trevor and Tibshirani, Robert},
+  volume={1},
+  number={10},
+  year={2001},
+  publisher={Springer series in statistics New York, NY, USA:}
+}
+@inproceedings{snoek2012practical,
+  title={Practical bayesian optimization of machine learning algorithms},
+  author={Snoek, Jasper and Larochelle, Hugo and Adams, Ryan P},
+  booktitle={Advances in neural information processing systems},
+  pages={2951--2959},
+  year={2012}
+}
+@inproceedings{zelnik2005self,
+  title={Self-tuning spectral clustering},
+  author={Zelnik-Manor, Lihi and Perona, Pietro},
+  booktitle={Advances in neural information processing systems},
+  pages={1601--1608},
+  year={2005}
+}
+@article{bernstein2014computational,
+  title={A computational challenge problem in materials discovery: Synthetic problem generator and real-world datasets},
+  author={Bernstein, Ronan Le Bras Richard and Suram, John M Gregoire Santosh K and Selman, Carla P Gomes Bart and van Dover, R Bruce},
+  year={2014}
+}
+@article{saveant1980catalysis,
+  title={Catalysis of chemical reactions by electrodes},
+  author={Saveant, Jean Michel},
+  journal={Accounts of Chemical Research},
+  volume={13},
+  number={9},
+  pages={323--329},
+  year={1980},
+  publisher={ACS Publications}
+}
+@article{costentin2017catalysis,
+  title={Catalysis of Electrochemical Reactions by Surface-Active Sites: Analyzing the Occurrence and Significance of Volcano Plots by Cyclic Voltammetry},
+  author={Costentin, Cyrille and Sav{\'e}ant, Jean-Michel},
+  journal={ACS Catalysis},
+  volume={7},
+  number={7},
+  pages={4876--4880},
+  year={2017},
+  publisher={ACS Publications}
+}
+@article{long2007rapid,
+  title={Rapid structural mapping of ternary metallic alloy systems using the combinatorial approach and cluster analysis},
+  author={Long, CJ and Hattrick-Simpers, J and Murakami, Makoto and Srivastava, RC and Takeuchi, Ichiro and Karen, Vicky L and Li, X},
+  journal={Review of Scientific Instruments},
+  volume={78},
+  number={7},
+  pages={072217},
+  year={2007},
+  publisher={AIP}
+}
+
+@article{green2017fulfilling,
+  title={Fulfilling the promise of the materials genome initiative with high-throughput experimental methodologies},
+  author={Green, Martin L and Choi, CL and Hattrick-Simpers, JR and Joshi, AM and Takeuchi, I and Barron, SC and Campo, E and Chiang, T and Empedocles, S and Gregoire, JM and others},
+  journal={Applied Physics Reviews},
+  volume={4},
+  number={1},
+  pages={011105},
+  year={2017},
+  publisher={AIP Publishing}
+}
+@article{white2012materials,
+  title={The materials genome initiative: One year on},
+  author={White, Ashley},
+  journal={MRS Bulletin},
+  volume={37},
+  number={8},
+  pages={715--716},
+  year={2012},
+  publisher={Cambridge University Press}
+}
+
+@article{koinuma2004combinatorial,
+  title={Combinatorial solid-state chemistry of inorganic materials},
+  author={Koinuma, Hideomi and Takeuchi, Ichiro},
+  journal={Nature materials},
+  volume={3},
+  number={7},
+  pages={429},
+  year={2004},
+  publisher={Nature Publishing Group}
+}
+@article{takeuchi2002combinatorial,
+  title={Combinatorial synthesis and evaluation of functional inorganic materials using thin-film techniques},
+  author={Takeuchi, Ichiro and van Dover, Robert Bruce and Koinuma, Hideomi},
+  journal={MRS bulletin},
+  volume={27},
+  number={4},
+  pages={301--308},
+  year={2002},
+  publisher={Cambridge University Press}
+}
+@article{xiang2008learning,
+  title={Learning a Mahalanobis distance metric for data clustering and classification},
+  author={Xiang, Shiming and Nie, Feiping and Zhang, Changshui},
+  journal={Pattern Recognition},
+  volume={41},
+  number={12},
+  pages={3600--3612},
+  year={2008},
+  publisher={Elsevier}
+}
+@incollection{roth2014mahalanobis,
+  title={Mahalanobis distance learning for person re-identification},
+  author={Roth, Peter M and Hirzer, Martin and K{\"o}stinger, Martin and Beleznai, Csaba and Bischof, Horst},
+  booktitle={Person re-identification},
+  pages={247--267},
+  year={2014},
+  publisher={Springer}
+}
+@article{haber2014discovering,
+  title={Discovering Ce-rich oxygen evolution catalysts, from high throughput screening to water electrolysis},
+  author={Haber, Joel A and Cai, Yun and Jung, Suho and Xiang, Chengxiang and Mitrovic, Slobodan and Jin, Jian and Bell, Alexis T and Gregoire, John M},
+  journal={Energy \& Environmental Science},
+  volume={7},
+  number={2},
+  pages={682--688},
+  year={2014},
+  publisher={Royal Society of Chemistry}
+}
+@article{long2009rapid,
+  title={Rapid identification of structural phases in combinatorial thin-film libraries using x-ray diffraction and non-negative matrix factorization},
+  author={Long, CJ and Bunker, D and Li, X and Karen, VL and Takeuchi, I},
+  journal={Review of Scientific Instruments},
+  volume={80},
+  number={10},
+  pages={103902},
+  year={2009},
+  publisher={AIP}
+}
+@inproceedings{aggarwal2001surprising,
+  title={On the surprising behavior of distance metrics in high dimensional space},
+  author={Aggarwal, Charu C and Hinneburg, Alexander and Keim, Daniel A},
+  booktitle={International conference on database theory},
+  pages={420--434},
+  year={2001},
+  organization={Springer}
+}
+@article{caruana1997multitask,
+  title={Multitask learning},
+  author={Caruana, Rich},
+  journal={Machine learning},
+  volume={28},
+  number={1},
+  pages={41--75},
+  year={1997},
+  publisher={Springer}
+}
+@article{bar2005learning,
+  title={Learning a mahalanobis metric from equivalence constraints},
+  author={Bar-Hillel, Aharon and Hertz, Tomer and Shental, Noam and Weinshall, Daphna},
+  journal={Journal of Machine Learning Research},
+  volume={6},
+  number={Jun},
+  pages={937--965},
+  year={2005}
+}
+@article{maaten2008visualizing,
+  title={Visualizing data using t-SNE},
+  author={Maaten, Laurens van der and Hinton, Geoffrey},
+  journal={Journal of machine learning research},
+  volume={9},
+  number={Nov},
+  pages={2579--2605},
+  year={2008}
+}
+@article{dhanabal2011review,
+  title={A review of various k-nearest neighbor query processing techniques},
+  author={Dhanabal, S and Chandramathi, S},
+  journal={International Journal of Computer Applications},
+  volume={31},
+  number={7},
+  pages={14--22},
+  year={2011}
+}
+@article{cover1967nearest,
+  title={Nearest neighbor pattern classification},
+  author={Cover, Thomas M and Hart, Peter E and others},
+  journal={IEEE transactions on information theory},
+  volume={13},
+  number={1},
+  pages={21--27},
+  year={1967},
+  publisher={Menlo Park}
+}

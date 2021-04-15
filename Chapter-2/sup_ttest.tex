@@ -1,0 +1,144 @@
+\section{Results of t-test for synthetic CV data sets}
+In this section, statistical comparison of various distance functions is performed with the following protocol. (1)~For each of the clustering settings and distance measure, we record the predicted labels. (2)~Using these labels and true labels, we compute four different clustering performance measures (ARI, AMI, NMI, FWS) from scikit-learn python library~\cite{sklearn}. 
+The four performance measures:~(a)~the adjusted rand index (ARI)-- which measures the similarity of our predicted labels  with  true  labels  ignoring permutations with a normalized chance~\cite{santos2009use}; mutual information,-- which measures agreement between the true and predicted labels ignoring permutations, with two variants being used~(b)~adjusted mutual information (AMI), which is normalized against chance~\cite{hubert1985comparing};~(c)~normalized  mutual  information (NMI),  which is mutual information normalized  by the product  of  entropies  of predicted and true labels~\cite{strehl2002cluster,vinh2010information}; and ~(d)~Fowlkes-Mallows scores (FWS)~\cite{fowlkes1983method}.
+(3)~For each distance and each performance measure, we compute the mean value of performance measures - see Table~\ref{ttest_setb2} for the example summary. Next, we select a distance measure with the highest mean to be the best for a given performance measure.
+We then perform a one-sided paired t-test between MT-LMNN and the best distance measure. 
+We define the Null hypothesis for any given performance measure to be:~\texttt{MT-LMNN is similar to the best distance measure}.
+The hypothesis test described above is designed to classify how similar (or dissimilar) are two distance measures in terms of any given clustering performance measure distribution over clustering settings that are varied.  
+
+We record the hypothesis test result $h$ obtained using the one-sided paired t-test (with a significance level of 0.01). 
+A value of \(h=0\) signifies that the t-test failed to reject the null hypothesis while a value of \(h=1\) signifies the rejection of our null hypothesis.
+Table~\ref{ttest_cv} summarizes the results from the t-test. If MT-LMNN is the best distance, we count number of performance measure for which it is the best. For example, MT-LMNN is the best distance according to all 4 performance measures for data set SET B1 (see~\Cref{ttest_setb1}). Similarly, we count number of tests for which the hypothesis was rejected and failed to be rejected.  
+
+Here, we show the results for the CV data sets considered above.  \Cref{ttest_seta1,ttest_seta2,ttest_setb1,ttest_setb2} report the mean value of four different performance measures considered for SET A1 and B2. 
+%As a reminder, these sets correspond to synthetic CV data sets with separable and non-separable degrees of freedom with noise, respectively. 
+The distance measure with the highest mean is marked using bold text and the h-value from the paired one-sided t-test is reported.
+
+~\Cref{ttest_cv} displays the results for all four CV datasets. Specifically, we present the number of performance measures for which MT-LMNN came out to be best, failed to reject and reject. Please note that we focus only on cases when a measure other than MT-LMNN is the best (SET B1). 
+In the case of SET A2, for all four performance measures the Null hypothesis failed to be rejected. As a reminder, the Null hypothesis states: MT-LMNN is similar to the best distance measure. Only for SET A2, MT-LMNN is rejected to be performing comparable to the best distance functions (i.e., Chebychev).
+
+
+In summary, regardless of the performance measure used, MT-LMNN is at least as good as the best distance measure obtained from the exhaustive search. 
+In many cases, MT-LMNN outperforms the standard similarity measure, including more sophisticated and computationally demanding distance measures such as dynamic time warping (DTW). 
+
+\begin{table}[h]
+     \centering
+    \begin{tabular}{ |c|c|c|c| }
+      \hline
+      Data set & Best & Failed to reject & Rejected \\
+      \hline
+      SET A1 & 0 & 4 & 0 \\
+      \hline
+      SET A2 & 0 & 0 & 4 \\
+      \hline
+      SET B1 & 4 & 0 & 0 \\
+      \hline
+      SET B2 & 0 & 3 & 1 \\
+      \hline
+    \end{tabular}
+        \captionsetup{justification=centering}
+         \caption{The number of performance measures MT-LMNN has been classified into each of the three categories--best, failed to reject, reject--for the four synthetic data sets introduced earlier.}
+         \label{ttest_cv}
+ \end{table}
+ 
+\begin{table}[h]
+     \centering
+    \begin{tabular}{ |c|c|c|c|c| }
+      \hline
+    Measure    & 	 AMI &	 ARI &	 FMS &	 NMI \\
+    \hline
+    Chebychev & 	 0.76 &	 0.76 &	 0.87 &	0.85 \\
+    city block  &	 0.74 &	 0.75 &	 0.87 &	0.83  \\
+    correlation &	 0.24 	& 0.28 &	 0.62 &	0.29 \\
+    cosine    & 	 0.33 &	 0.35 &	 0.65 &	0.38 \\
+    Euclidean & 	 \textbf{0.76} 	& \textbf{0.76} 	& 0.87 &	\textbf{0.85} \\
+    Hamming    &	 0.33 &	 0.36 &	 0.66 &	0.39 \\
+    Jaccard   & 	 0.33 &	 0.36 &	 0.66 &	0.39 \\
+    Minkowski & 	 0.76 &	 0.76 &	 0.87 &	0.85 \\
+    DTW       & 	 0.73 &	 0.77 &	 \textbf{0.88} &	0.81 \\
+    MT-LMNN  &  	 0.76 &	 0.76 	& 0.87 &	0.85 \\
+    sEuclidean &	 0.21 &	 0.21 	& 0.62 &	0.27 \\
+    \hline
+    $h$   &  	 0.00 &	 0.00 &	 0.00 &	0.00 \\
+    \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+     \caption{Mean value of four different performance measures for all the distance measures studied for SET A1 (synthetic CV data sets with separable DOFs and no noise). The best distance measures are highlighted. For this data set, MT-LMNN is failed to reject for all the performance measure as its performance is comparable to the best performing measure. }
+     \label{ttest_seta1}
+ \end{table}
+ 
+\begin{table}[h]
+     \centering
+    \begin{tabular}{ |c|c|c|c|c| }
+      \hline
+    Measure    & 	 AMI &	 ARI &	 FMS &	 NMI \\
+    \hline
+    Chebychev  &	 \textbf{0.75} 	& \textbf{0.74} &	 \textbf{0.85} &	\textbf{0.84} \\
+    city block  	& 0.56 	& 0.54 &	 0.72 &	0.63 \\
+    correlation &	 0.29 &	 0.30 &	 0.59 &	0.33 \\
+    cosine     &	 0.28 	& 0.30 	& 0.59& 	0.33 \\
+    Euclidean & 	 0.72 &	 0.72 &	 0.84 &	0.81 \\
+    Hamming  &  	 0.25 	& 0.25 &	 0.58 &	0.28 \\
+    Jaccard   & 	 0.25 &	 0.25 &	 0.58 &	0.28 \\
+    Minkowski  &	 0.72 	& 0.72 &	 0.84 &	0.81 \\
+    DTW      &  	 0.54 &	 0.54 &	 0.74 &	0.62 \\
+    MT-LMNN   & 	 0.54 &	 0.53 &	 0.71 &	0.61 \\
+    sEuclidean &	 0.30 &	 0.31 &	 0.60 &	0.36 \\
+    \hline
+    $h$   &  	 1.00 &	 1.00 &	 1.00 &	1.00 \\
+    \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+     \caption{Mean value of four different performance measures for all the distance measure studied for SET A2(synthetic CV data sets with not-separable DOFs and no noise). For this data set, Chebychev is selected as the best distance measure for all of the performance measures used and MT-LMNN is rejected to be performing comparable to Chebychev.}
+     \label{ttest_seta2}
+ \end{table}
+ 
+\begin{table}[h]
+\centering
+    \begin{tabular}{ |c|c|c|c|c| }
+      \hline
+    Measure    & 	 AMI &	 ARI &	 FMS &	 NMI \\
+    \hline
+    Chebychev  &	 0.36 &	 0.36 &	 0.64 &	0.42 \\
+    city block  &	 0.32 &	 0.34 &	 0.65 &	0.38 \\
+    correlation &	 0.17 &	 0.16 &	 0.58 &	0.24 \\
+    cosine   &  	 0.23 &	 0.25 &	 0.62 &	0.28 \\
+    Euclidean  &	 0.41 &	 0.40 &	 0.66 &	0.47 \\
+    Hamming  &  	 0.25 &	 0.27 &	 0.60 &	0.28 \\
+    Jaccard   & 	 0.25 &	 0.27 &	 0.60& 	0.28 \\
+    Minkowski & 	 0.41 &	 0.40 &	 0.66& 	0.47 \\
+    DTW       & 	 0.38& 	 0.38 &	 0.64 &	0.43 \\
+    MT-LMNN   & 	\textbf{ 0.41} &	 \textbf{0.44} &	 \textbf{0.68} &	\textbf{0.47} \\
+    sEuclidean &	 0.22 &	 0.21 &	 0.62 &	0.28 \\
+    \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+     \caption{Mean value of four different performance measures for all the distance measure studied for SET B1(synthetic CV data sets with not-separable DOFs with noise). For this test case MT-LMNN is adjudged the best distance measure for all of the performance measures considered.}
+     \label{ttest_setb1}
+ \end{table}
+ 
+\begin{table}[h]
+     \centering
+\begin{tabular}{ |c|c|c|c|c| }
+  \hline
+Measure    & 	 AMI &	 ARI &	 FMS &	 NMI \\
+\hline
+Chebychev & 	 0.27 &	 0.24 	& 0.54 &	0.31 \\
+city block  &	 0.25 &	 0.24 &	 0.55 &	0.29 \\
+correlation &	 0.26 &	 0.26 &	 0.57 &	0.30 \\
+cosine    & 	 0.27 &	 0.27 &	 0.58 &	0.31 \\
+Euclidean  	& 0.27 	& 0.24 	& 0.54 &	0.31 \\
+Hamming    &	 0.25 &	 0.25 &	 0.58 &	0.28 \\
+Jaccard   & 	 0.25 &	 0.25 &	 0.58 &	0.28 \\
+Minkowski  &	 0.27 &	 0.24 &	 0.54 &	0.31 \\
+DTW       & 	 \textbf{0.32} &	 \textbf{0.32} &	 0.60 &	\textbf{0.37} \\
+MT-LMNN   & 	 0.25 &	 0.22 &	 0.60 &	0.31 \\
+sEuclidean &	 0.29 &	 0.30 &	 \textbf{0.60} &	0.34 \\
+\hline
+$h$ &    	 0.00& 	 1.00 &	 0.00 &	0.00 \\
+\hline
+\end{tabular}
+    \captionsetup{justification=centering}
+     \caption{Mean value of four different performance measures for all the distance measure studied for SET B2 (synthetic CV data sets with Not-separable DOFs with a Gaussian noise). Note MT-LMNN performance is comparable to more sophisticated DTW.}
+     \label{ttest_setb2}
+ \end{table}

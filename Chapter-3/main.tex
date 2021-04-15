@@ -1,1 +1,35 @@
 \chapter{Active knowledge extraction from cyclic voltammetry}\label{chapter3}
+Cyclic Voltammetry~(CV) is an electro-chemical characterization technique used in an initial material screening for desired properties and to extract information about electro-chemical reactions.
+In some applications, to extract kinetic information of the associated reactions (e.g., rate constants and turn over frequencies), CV curve should have a specific shape (for example an S-shape). 
+However, often the settings to obtain such curve are not known \textit{a priori}. 
+In this chapter, an active search framework is defined to accelerate identification of settings that enable knowledge extraction from CV experiments.
+Towards this goal, a function space representation of CV responses is used in combination with Bayesian Model Selection (BMS) method to efficiently label the response to be either \textit{S-shape} or not \textit{S-shape}. 
+Using an active search with BMS oracle, we report a linear target identification in a 6-dimensional design space (comprising of thermodynamic, mass transfer and solution variables as dimensions). 
+The framework has the potential to be a powerful virtual screening technique for molecular catalysts, bi-functional fuel cell catalysts etc.
+
+
+\section{Introduction}
+\input{Chapter-3/introduction.tex}
+\input{Chapter-3/method_al}
+\input{Chapter-3/method_bms}
+\input{Chapter-3/method_gps}
+
+\section{Results}
+To demonstrate the application of active search for S-shaped CV curves, we choose a classic EC-mechanism, that consists of two reactions: E and C (\Cref{E} and \Cref{C}) corresponding to one electron transfer reaction (E) and one chemical reaction (C), respectively. 
+EC-mechanism is selected as it is a well studied mechanism~\cite{rountree2014evaluation, costentin2015cyclic} that produces a variety of CV shapes thus serves as a good test case for the oracle proposed in this paper. 
+In this work, we use the MECSim simulator~\cite{MECSim} to generate CV curves on demand. 
+
+\input{Chapter-3/results_data}
+\input{Chapter-3/results_abs}
+
+\section{Conclusion and future work}
+In conclusion, we defined and evaluated a \(\mathcal{GP}\)-based oracle for materials discovery using cyclic voltammetry.
+Next, we combined the oracle with a state-of-the-art active batch search to identify condition resulting in the targeted shape of CV curve. 
+We demonstrated a robust high throughput combinatorial search to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search (with a discrete sampling of modest 5 levels per dimension). 
+
+This work has implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
+Specifically, we have illustrated a framework that can be used to identify S-shaped CV curves. 
+Once S-shaped CV curve is obtained, a foot of the wave analysis can be applied ~\cite{FOWA} to extract rate constant for rate determining step, overpotential dependent turn over frequency etc.
+In this sense our method has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
+
+\input{Chapter-3/Supplementary.tex}

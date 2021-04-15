@@ -1,0 +1,63 @@
+\subsection{Data generation}\label{sec:data}
+The EC mechanism is a two step reaction comprising of an electron transfer~\Cref{E} followed by a chemical reaction in~\Cref{C}. 
+\begin{chequation}
+\begin{align}
+    &\ce{P + e <=> Q} \label{E}\\
+    &\ce{Q + A -> P } \label{C}
+\end{align}
+\end{chequation} 
+Electro-chemical kinetics of the EC mechanism can be modeled and solved using governing partial differential equations~\cite{saveant1984homogeneous}. 
+In this section, we are interested in modeling the (micro)kinetics of species (and electron) that contributes to current generation under cyclic voltage sweep at a given sweeping rate.
+
+Towards this goal, the transport of the three species (P, Q, A) in the solution is modelled using Fick's second law of diffusion with a source term corresponding to the heterogeneous reactions:
+\begin{align}
+    \pdv{C_P}{t} &= D_{\text{diff}}\pdv[2]{C_P}{u} + k_{s}C_{Q}C_{A} \nonumber\\
+    \pdv{C_Q}{t} &= D_{\text{diff}}\pdv[2]{C_Q}{u} - k_{s}C_{Q}C_{A} \nonumber\\
+    \pdv{C_A}{t} &= D_{\text{diff}}\pdv[2]{C_A}{u} - k_{s}C_{Q}C_{A} \label{eq:fickslaws}
+\end{align}
+with the boundary conditions defined as follows:
+\begin{align}
+    t&=0, \forall u &  &C_P = C^0_{P}, C_A = C^0_{A}, C_Q = C^0_{Q} \nonumber \\
+    t&>0, u\rightarrow \infty &  &C_P = C^0_{P}, C_A = C^0_{A}, C_Q = C^0_{Q}  \nonumber\\
+    t&>0, \forall u &  &\pdv{C_A}{u}=0; \pdv{C_P}{u}+\pdv{C_Q}{u}=0; C_P/C_Q = \exp(\frac{F}{RT}(V-E^0)) \label{eq:bcs}
+\end{align}
+In~\Cref{eq:fickslaws,eq:bcs} the formal reversible potential of electron transfer reaction~\cref{E} is \(E^0\), the  concentration of catalyst P is \(C_P\), specie Q is \(C_Q\) and substrate A is \(C_A\). \(D_{\text{diff}}\) is a common diffusion coefficient for all species and \(k_{s}\) is the rate constant of the forward reaction in~\Cref{C}. 
+The spatial domain is denoted as \(u\) starting from the working electrode~(i.e. \(u=0\)) assuming a semi-infinite domain. The time scale of the simulation is denoted as \(t\). Initial concentrations~(i.e. at \(t=0\)) are denoted with a superscript 0. \(V\) represents the time varying applied voltage. 
+For a cyclic voltage sweep between voltages \(V_i, V_f\) at a rate of \(\nu~V/s\) we get~\Cref{eq:voltage_scan} for V~(\(T_s\) is switching time).
+\begin{align}\label{eq:voltage_scan}
+    V(t) = 
+    \begin{cases}
+        V_i + \nu t & 0<t<T_s\\
+        V_f - \nu t & T<t<2T_s
+    \end{cases}
+\end{align}
+Digital simulation of system of partial differential equations in~\Cref{eq:fickslaws,eq:bcs} is performed to determine spatio-temporal concentration profiles of species P, Q, A. 
+The Faradaic current observed during the cyclic voltage load is computed using~\Cref{eq:current} following the Butler-Volmer model for heterogeneous electron transfer at the electrode surface.
+\begin{align}\label{eq:current}
+    i(t,v) = FA_{\text{surf}}k^0\left[C_Q\exp(\frac{\alpha F}{RT}(V-E^0)) - C_P\exp(\frac{(1-\alpha)F}{RT}(V-E^0))\right]
+\end{align}
+In~\Cref{eq:current}, \(F\) is Faraday's constant, \(A_{\text{surf}}\) is surface area of electrode~( \(=1~cm^2\)), \(R\) is universal gas constant, \(T\) is room temperature.
+\(k^0\) is heterogeneous electron transfer rate constant and \(\alpha\) is a symmetric charge transfer coefficient~(=0.5).
+    
+We use the freeware software MECSim~\cite{kennedy2015monash,MECSim} to digitally simulate the cyclic voltammetry response in the voltage range of \([-0.5V,0.5V]\). 
+Along with the parameters used in~\Cref{eq:fickslaws,eq:bcs}, MECSim can also simulate the effects of an uncompensated resistance (\(R_u\)), double layer capacitance (\(C_{dl}\)) which are not used in this example case study. 
+We form a 6-dimensional design search space using \(C_P^0, C^A_0, k_{s}, k^0, \nu, E^0\) and set the values of \(R_u = 0, C_{dl} = 0, \alpha=0.5, D=1\times10^{-5}\). 
+\Cref{tab:search_space} lists the combinatorial space defined with six design variables (dimensions of search space) and number of samples along the dimension used to create an exhaustive search grid of tunable settings.
+After excluding responses from a diverging simulation arising from a combination of non-physical parameters for MECSim~\footnote{see MECSim documentation for known limitations} we get a total of \(\approx 17\times10^3\) CV curves in our database. 
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Parameter & range & number of levels per dimension \\  \hline
+\(\log C_P^0 \) &[-2,3] & 5\\ \hline
+\(\log C_A^0 \) &[-2,3] & 5\\ \hline
+\( E^0 \) &[-0.4,0.4] & 5\\ \hline
+\(\log k_{s} \) &[-1,6] & 5\\ \hline
+\(\log k^0 \) &[-1,6] & 5\\ \hline
+\(\log \nu \) &[-2,4] & 6\\ \hline
+\end{tabular}
+     \caption{Combinatorial space used to generate CV responses in EC mechanism along with number of levels used in the exhaustive search.}
+     \label{tab:search_space}
+ \end{table}
+ 
+

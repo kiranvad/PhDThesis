@@ -1,0 +1,93 @@
+\section{Method}
+In this section, the workflow is described by first introducing metric as a distance function. 
+The large margin nearest neighbor algorithm and its extension to the multi-task scenario is used to learn a metric. 
+Next, the two concepts are coupled to learn the distance measure from HTE of compositional libraries.
+
+
+\subsection{ Distance Metric Learning}
+A metric is a mapping $D:V \times V \rightarrow R^+$. The map is a metric over a vector space $V$ only if it satisfies the following properties $\forall v_i,v_j,v_k \in V$:
+\begin{enumerate}
+    \item Triangular inequality:  $D(v_i,v_j)+D(v_j,v_k) \geq D(v_i,v_k)$
+    \item Non-negativity: $D(v_i,v_j) \geq 0 $ 
+    \item Symmetry: $D(v_i,v_j)=D(v_j,v_i)$
+    \item Distinguishable: $D(v_i,v_j)=0 \iff v_i=v_j$
+\end{enumerate}
+Euclidean distance is a widely used example of a metric.
+It is typically the first choice for supervised or unsupervised learning~\cite{dhanabal2011review,cover1967nearest}. 
+A mapping $D$ can also be learned from the data to satisfy the properties mentioned above. 
+A generalized Mahalanobis distance metric is one example of such a learned distance. Formally, the generalized Mahalanobis distance $D_M$ is defined as: 
+\begin{equation}
+    D_M (x_i,x_j) = \sqrt{(x_i-x_j)\mathbf{M}(x_i-x_j)^\top} 
+                  = \sqrt{(\mathbf{L} x_i- \mathbf{L} x_j)(\mathbf{L} x_i- \mathbf{L} x_j)^\top}
+    \label{eq1}
+\end{equation}
+where the matrix \(\mathbf{M}\) is a symmetric positive semi-definite matrix. Matrix \(\mathbf{M}\) is learned from data such that some constraints on the data are satisfied in addition to preserving properties required by the definition of the metrics. 
+When \(\mathbf{M}\) is a positive semi-definite matrix, it can be decomposed as \(\mathbf{M=L^\top L}\).
+In this sense, the generalized Mahalanobis distance measure ($D_M$) is equivalent to the Euclidean distance of the transformed data, where transformation $x\rightarrow \mathbf{L}x$ is learned from the data. 
+
+Many works have reported ways to estimate \(\mathbf{M}\) for the problem at hand ~\cite{xiang2008learning,roth2014mahalanobis} with various linear and non-linear methods proposed to find metrics~\cite{kedem2012non}. Metric learning has been posed as a supervised or unsupervised problem demonstrating its versatility~\cite{wang2015survey}.  
+In this work, we learn the distance metric using a large margin nearest neighbor (LMNN) algorithm~\cite{weinberger2006distance} that we detail in the next subsection. 
+
+\subsection{Distance Metric Learning via LMNN}
+LMNN learns a generalized Mahalanobis distance metric (\(\mathbf{M}\)) to improve \textit{k}-nearest neighbor classification of a single task over labeled high-dimensional data. 
+Consider a data-label pair $(x_i,y_i)$, where $x_i \in R^d$ for $i=1,2,3,...,n$, and $y_i \in (1,2,3...,c)$. 
+The data set consists of $n$ d-dimensional data points divided into $c$ classes. 
+Learning a metric using LMNN is posed as a semi-definite problem of minimizing $D_M^2(x_i,x_j)$ where $x_i,x_j$ have the same label $y_i=y_j$ and penalizing $D_M^2(x_i,x_k)$ for $y_i \ne y_k$. This is achieved by solving the optimization problem stated as: 
+\begin{equation}
+\begin{aligned}
+& \underset{\mathbf{M}}{\text{minimize}} &\sum\limits_{i,j\inS}{D_M^2(x_i,x_j)} +\mu \sum\limits_{S}{ \xi_{ijk} }\\
+& \text{subject to}& \text{$i,j,k \in S=\{(i,j,k),y_i=y_j\ne y_k\}$ }\\
+&                  & D_M^2(x_i,x_j)-D_M^2(x_i,x_k)\geq 1-\xi_{ijk}.\\
+&                  & \xi_{ijk}\geq 0\\
+&                   &\mathbf{M}\succeq 0\\
+\end{aligned}
+\label{eq2}
+\end{equation}
+LMNN finds a matrix \(\mathbf{M}\) such that for a given data point $x_i$, points in the local neighborhood of $x_i$ are separated between classes and brought close for within classes. 
+LMNN assumes that the set of $k$ nearest neighbors for a given query data point come from the same class as the query. These neighbors are called target neighbors. The LMNN algorithm uses the knowledge about the target neighbors to learn distance \(\mathbf{M}\) such that target neighbors are closer to each other than to the data points from another class (also called impostors) -- by a large margin.
+The choice of the nearest neighbors is typically made using some side-information, or in the absence thereof, the Euclidean distance between data points is used to identify $k$ nearest neighbors from within a given class~\cite{weinberger2006distance}. One of the advantages of LMNN is that it considers the local information by imposing constraints in a local manner.
+
+\subsection{Distance Metric Learning via MT-LMNN}
+Multi-task learning (MTL) is a sub-field of machine learning. It is based on the assumption that if several tasks are related, then co-learning these tasks improves learning performance. 
+MTL can be seen as \textit{inductive transfer learning} where discovering the relationships among different but related tasks serves as inductive bias to improve the learning~\cite{caruana1997multitask}. 
+The MTL paradigm is generic and can be used for various problems such as supervised learning (e.g., classification or regression problems), unsupervised learning (e.g., clustering), graphical models, etc.
+In this work, we use the multi-task LMNN algorithm to learn a metric in MTL framework ~\cite{parameswaran2010large}. 
+
+MT-LMNN learns a shared metric (defined by \(\mathbf{M_0}\)) and a task-specific metric (defined by \(\mathbf{M_t}\)) such that \textit{k}-nearest neighbor classification is improved for each task while capturing general trends in \(\mathbf{M_0}\). A single metric that improves the classification for a given task $t$ is defined as \(\mathbf{M_{0} + M_{t}}\).
+The regularized loss minimization principle is used to learn  \(\mathbf{M_0}, \mathbf{M_t}\) according to the following:
+\begin{equation}
+\begin{aligned}
+& \underset{\mathbf{M_0,M_1,...,M_T}}{\text{minimize}} &\gamma_0\lVert \mathbf{{M_0-I}} \rVert ^2_F+ \sum_{t=1}^{t=T} \gamma_t \lVert \mathbf{{M_t-I}} \rVert ^2_F\\
+\end{aligned}  
+\label{regM}
+\end{equation}
+where $t=1,2...,T$ represent different tasks being defined on the data, and $\gamma_i (i=0,1,2...,T)$ are regularization coefficients. 
+
+In this work, we build on the assumption that in composition libraries the material properties along and across compositional dimensions are related within some local neighborhood. 
+Specifically, if one considers the phase diagram for a ternary system, there will be some commonalities between material properties (or associated measurements such as XRD) when screened along three compositional dimensions.
+If these commonalities are captured in the multi-task setting, the distance measure can be learned more efficiently (defined by \(\mathbf{M_0}\), and \(\mathbf{M_t}\)) and subsequently can inform the clustering algorithm.
+
+In the original paper~\cite{parameswaran2010large}, MT-LMNN was formulated as a classification problem and required classes to be defined. 
+Two sets of problems were considered, label-compatible tasks (where the tasks share the same label set) and label-incompatible tasks (the tasks do not share a label set). 
+In this work, we choose the definition of classes and tasks such that each task corresponds to one design variable (e.g., elemental composition) and each class corresponds to a category of the design variable (e.g., low, medium and high chemical content of the corresponding element). 
+Such a problem definition applies to the HTE data of a multi-component composition library, where each sample is characterized by (a)~some measurement to generate a response curve and (b)~elemental compositions being the design variable. 
+Consequently, the number of tasks is defined by the number of elements screened in HTE.
+For the same data, each task has a set of incompatible labels.
+Each label is defined as a category representing the relative content of the corresponding element within some interval.
+For example, three categories can be chosen for a given elemental content: low, medium and high. 
+In general, one can divide the data into a finite number of various classes ($c$) by sorting the data according to the design variable. In this work, the response is divided into three categories of low, medium and high elemental content. This results in three classes for each task. Without loss of generality, one can aim to find the optimal number of classes. 
+
+MTL with tasks and classes defined as above is used to learn a metric using MT-LMNN to improve the classification in each task (corresponding to individual elements). 
+MTL is formulated such that it improves the learning of distance on classes defined based on the element content. 
+The relative value of regularized coefficients $ \gamma_{0t} = \lVert \gamma_0 -\gamma_t \rVert$ signifies the importance of each task specific metric \(\mathbf{M_t}\) over shared metric \(\mathbf{M_0}\) to improve \textit{k}-nearest neighbor classification for task $t$. 
+A lower value of $\gamma_{0t}$ means that the shared metric \(\mathbf{M_0}\) is sufficient to classify data points for task $t$.  
+One can select the regularization coefficients in~\Cref{regM} through hyperparameter selection using a constrained Bayesian optimization to minimize \textit{k}-NN classification error (see Supplementary Information for more information). 
+Intuitively, if regularized coefficients are selected, metric learning results in a single shared metric \(\mathbf{M_0}\) that finds general trends in the data while accurately classifying data points for all tasks. 
+This is equivalent to learning a similarity measure for the high-dimensional responses, which respects the similarity in terms of the composition (i.e., since \(\mathbf{M_0}\) can classify data points based on relative chemical content for all the elements, it knows the relative location of a data point in composition space).   
+
+Once a metric \(\mathbf{M_0}\) is learned via MT-LMNN, it is used in conjunction with the off-the-shelf clustering algorithms to find clusters in the design space. The generic workflow proposed in this paper consists of the following steps: 
+\begin{enumerate}
+\item Data obtained from HTE is stored in a matrix $X$ (each column is a response for each sample).
+\item A generalized Mahalanobis metric \(\mathbf{M_0}\) is learned on $X$ such that it emphasizes similarity in terms of response as well as a design variable (composition).
+\item Clustering method is used to group the samples into clusters using the similarity measure computed earlier. We use a (i) hierarchical clustering algorithm (HCA) and (ii) weighted graph partition algorithms for demonstration purposes. 
+\end{enumerate}

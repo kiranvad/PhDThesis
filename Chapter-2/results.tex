@@ -1,0 +1,306 @@
+\section{Results and discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this chapter, the robustness of the MTML is demonstrated for compositional libraries using two types of measurements. 
+First the analysis of synthetic cyclic voltammetry curves is reported.
+Synthetic data is generated with characteristic features explicitly dependent on the material composition. 
+In the second case, the experimental data set from the XRD experiment that has been labeled by the human expert~\cite{long2007rapid} is used. 
+Two two data sets are diverse and serve as a good test for MTML.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Composition-response maps from cyclic voltammetry}
+
+\subsubsection{Data generation}
+The synthetic data is generated such that it mimics electrochemical data from a cyclic voltammetry test. 
+Inspired by the works in~\cite{saveant1980catalysis,costentin2017catalysis}, where the solutions of electrochemical reaction system models are predominantly exponential functions, we choose to generate response $X_i$ using an affine combination of Gaussian functions as follows:
+
+%\begin{equation}
+%    X_i = \frac{D2}{7.98}\cdot\frac{1}{{\sigma _1 \sqrt {2\pi } }}e^{{{ - \left( {x - D1 } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - D1} \right)^2 } {2\sigma _1 ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma _1 ^2 }}}+\frac{D3}{0.54}\cdot\frac{1}{{\sigma _2 \sqrt {2\pi } }}e^{{{ - \left( {x - 1.2 } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - 1.2 } \right)^2 } {2\sigma _2 ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma _2 ^2 }}}
+%    \label{eqGauss}
+%\end{equation}
+
+\begin{equation}
+\begin{split}
+X_i(x)=\frac{D2}{g(D1,D1,\sigma_1)} g(x,D1,\sigma_1) + \frac{D3}{g(1,D2,\sigma_2)} g(x,1.2,\sigma_2) \\
+g(x,\mu,\sigma)= \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+\end{split}
+    \label{eqGauss}
+\end{equation}
+The model is built as the sum of two Gaussian functions ($g(x,\mu,\sigma)$) over the normalized domain $x\in(0,1)$ with mean ($\mu$) and standard deviation ($\sigma$) chosen according to the material composition in the HTE library. 
+For each sample of a given composition, a signal is generated using an explicit function (see ~\Cref{DOFsVar}). 
+The union of all the responses gives rise to a data matrix $X_{m\times n}$ where $m$ is the dimensionality of the response and $n$ is the total number of samples (we use $m=350$,$n=435$). 
+
+The signal consists of a single peak followed by the exponential increase to the cut-off value. 
+The shape of the signal is controlled by three degrees of freedom (DOF): $D1$, $D2$ and $D3$. 
+Three degrees of freedom are equivalent to the features of the signal: the position of the peak, the peak intensity, and the cut-off value.
+Specifically, the position of the first peak is controlled by $D1$, its intensity by $D2$, and the cut-off value by $D3$, respectively.
+The remaining DOFs are kept fixed: $\sigma_1=0.05$, $\sigma_2=0.1$ and the mean value of the second Gaussian function in~\Cref{eqGauss} is set as $1.2$ to be outside of the normalized time frame. 
+The right panel of~\Cref{datsExpl} depicts the example signal with a degree of freedom marked and added noise. 
+
+Parameterizing the signal with the finite number of DOFs allows us to connect them with three compositions in ternary libraries directly. 
+Assuming that each sample in a ternary system consists of three elements with composition $C = (C1,C2,C3)$ (see \Cref{DOFsVar}), the mapping between design variables ($C$) and the shape of the signal can be explicitly defined. 
+Moreover, multiple mappings can be defined for a given multi-component system. 
+Each mapping is defined over a subset of design space, which we call phase. 
+This subset may have a physical meaning. 
+For example, in the case of the library with XRD measurements, the subset is equivalent to samples of the same phase (in terms of the same lattice structure). 
+In a more general case, an individual subset is a group of samples from the continuous neighborhood in the design space.
+Above definition of a subset mimics the down selection map of a HTE CV data by Suram et al~\cite{suram2015generating}. 
+However, here we parameterize the signal with three DOFs and work with resulting high-dimensional responses, while in~\cite{suram2015generating}, one figure of merit -- overpotential -- was selected as a feature of the CV signal. 
+%which have a unique trend for the three DOFs combined. A typical response curve generated using these parameters is shown in~\Cref{sampData}. 
+
+ \begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter-2/figs/Figure1a.eps}
+        \caption{}
+        \label{origPhase}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=\textwidth]{Chapter-2/figs/Figure1b.eps}
+        \caption{}
+        \label{sampData} 
+    \end{subfigure}
+    \vskip\baselineskip
+    \caption{(a) Ternary sample with elemental compositions given as C1, C2, C3; partitioned into three known phases. Each color corresponds to one phase. (b) A typical high-dimensional sample response in the synthetic data (red--with Gaussian noise). The degrees of freedom are denoted as D1 (peak position), D2 (peak intensity), D3 (cut-off current)}
+    \label{datsExpl}
+\end{figure}
+
+\begin{table}[h]
+     \centering
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+& \multicolumn{3}{ |c| }{\textbf{Non-Separable DOFs}} &\multicolumn{3}{ |c| }{\textbf{Separable DOFs}}\\ \hline
+Phase in \Cref{origPhase} & D1 & D2 & D3 & D1 & D2 & D3 \\  \hline
+\textbf{$\alpha$} & C2+C3 & C3 & 2+C2 & C2+C3 & C3 & 2+C2 \\ 
+\textbf{$\beta$} & C2 & C1+C2 & 2+C1 & C2 & C1+C2 & 4+C1 \\ 
+\textbf{$\gamma$} & C3 & C1 & 5.0 & C3 & C1 & C1+C3 \\ 
+\hline
+\end{tabular}
+     \caption{DOF variations across each phase for two cases considered in the data sets.}
+     \label{DOFsVar}
+ \end{table}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter-2/figs/figure2a.eps}
+        \caption{}
+        \label{sepDOFscate}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=\textwidth]{Chapter-2/figs/figure2b.eps}
+        \caption{}
+        \label{nonsepDOFscate} 
+    \end{subfigure}
+    \vskip\baselineskip
+    \caption{(a) Phases can be clearly separated in the three dimensional known DOF space (Test cases SET A1,B1) (b) phases can not be separated clearly in three dimensional space (Test cases SET A2,B2)}
+    \label{scates}
+\end{figure}
+
+% In general, for any given $m$--dimensional HTE data response matrix $X_{m \times n}$ and its corresponding composition matrix $C_{3 \times n}$, its governing $l$--dimensional degrees of freedom matrix $D_{l \times n}$ can be defined using a map $M_{DX}: D_{l\times n} \rightarrow X_{m\times n}$. 
+% Learning a compositional phase diagram would require one to partition the map $M_{DX}$ into a set of surjective maps $P_k$ on the data set $\mathcal{D} = (X_{m \times n},C_{3 \times n})$ such that $P_k: \mathcal{C}_{k} \rightarrow \mathcal{X}_{k}$ is continuous in $\mathcal{C}_k \subset C$ for the corresponding $\mathcal{X}_k \subset X$.
+% Maps $P_k$, defined above, may result in an irreducible representation (typically a lower dimensional manifold) such that: (1)~the responses form distinct clusters in the lower dimensional embedding ; that is, $P_k$ are distinct  $\forall k $ and $M_{DX}$ is continuous in $C$, or (2)~the responses are overlapping; that is, $P_k$ are distinct $ \forall k $ but $ M_{DX} $ is discontinuous in $C$.
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.5\textwidth, angle=0]{Chapter-2/figs/CompPhaseMap.pdf}
+%     \caption{A composition-response map can be seen as a partitioning of the map $M_{DX}$ into various maps $P_k$}
+%     \label{compPhaseMap}
+% \end{figure}
+
+% Distinct, continuous maps physically signify the dependency of responses entirely on composition (e.g., XRD structural data~\cite{long2007rapid,iwasaki2017comparison}). Presence of a discontinuous map $M_{DX}$ means that at least some responses are not completely governed by composition. In other words, there are at least two samples with similar responses  that are widely separated compositions in the composition space (e.g, cyclic voltammetry data where the overpotential, one of the degrees of freedom of the response, is surjectively mapped to composition with several samples having similar values of overpotential but are very widely separated in composition space~\cite{suram2015generating}). 
+%However, we would like to note here that, since composition is not the only variable that governs the response, it is reasonable to assume that for a given phase map $P_k$, some of the governing DOFs of subset of responses $ \mathcal{X}_k$ may not depend on the corresponding composition subset $ \mathcal{C}_k$. Non-existence of map $P_k$ results in an irreducible representation of data (typically a lower dimensional manifold) that does not clearly separate the inherent clusters or phases exist in the data as it has not captured the properties of exact phase map $P_{k}^{E}:D_{l \times n} \rightarrow X_{l \times n}$.%
+
+In this chapter, a data set $\mathcal{D}$ is generated with $k$ phases. Two cases with varying degrees of difficulty are considered.
+In each case, three maps for each $k \in \{ 1,2,3 \}$ (see ~\Cref{DOFsVar}) is defined such that the ternary composition space has three inherent non-hyperspherical subsets (e.g., parabolic cuts as shown in~\Cref{origPhase}). 
+% Two cases are considered: (1)~the case of separable DOFs that mimics the existence of three distinct surjective phase maps $P_k$, $ \forall k = \{1,2,3\}$ such that $M_{DX}$ is continuous in $C$; and (2)~the case of non-separable DOFs that mimics the discontinuous nature of $M_{DX}$ in $C$ with a set of phase maps such that $P_k$ does not completely represent the respective subset of the $M_{DX}$ map for at least one $k \in \{ 1,2,3 \}$.
+
+The first case, separable DOFs, consists of data points $\mathcal{X}_k$ forming distinct clusters, such as the one shown in~\Cref{sepDOFscate}. 
+% This is equivalent to having three distinct maps partitioning the data (i.e., equivalently partitioning the high-dimensional manifold of $X_{m \times n}$) such that mapping is bijective and each composition has a unique response. 
+% Formally, $\mathcal{X}_i \bigcap \mathcal{X}_j = \varnothing $, $\forall \mathcal{X}_i, \mathcal{X}_j, i \neq j$, where $\varnothing$ is an empty set. % (Note that since $\bigcap$ is taken for subsets with high dimensional responses as elements, it uses the similarity measure $S$ defined earlier to identify if two responses are same).
+% As shown in~\Cref{DOFsVar}, each phase in the separable DOF case is assigned distinct, surjective maps $P_k$ that define DOFs and the corresponding responses $\mathcal{X}_k$.
+~\Cref{sepDOFscate} depicts the relationships between DOFs for three maps we used in this work.
+The DOFs of each map are marked with a different color. 
+In this case, there is no overlap in DOF space between distinct phases.
+This clear separation between DOFs makes this data set simpler to analyze with better performance -- as shown in the results section. 
+%in the irreducible representation using standard distance metrics since the responses have highly correlated and distinct clusters governed by the corresponding maps $P_k , k = \{ 1,2,3 \}$.
+The second case, non-separable DOFs, consists of maps resulting in data points that are not separable on the manifold with DOFs as basis vectors.
+% This is equivalent to having three distinct maps $P_1,P_2,P_3$ that divide the data such that $\exists  i, j$ and $\mathcal{X}_i \bigcap \mathcal{X}_j$ is a non-empty set for $ i \neq j \in \{1,2,3\}$.
+% ~\Cref{DOFsVar} lists three maps for the non-separable DOF case that we used in this work. 
+% Individual phases are named $\alpha$, $\beta$ and $\gamma$. 
+% Both phases $\alpha$ and $\beta$ have injective maps $P_{\alpha}$, $P_{\beta}$ that define DOFs where the values of the DOFs do not overlap. 
+% This is depicted in~\Cref{nonsepDOFscate}. 
+% However, maps $P_{\gamma}$ are defined such that their DOFs overlap with the DOFs defined by two other phases.
+% This overlap in DOFs and corresponding data points for $P_{\gamma}$ leads to the case where the inherent phases exist in the data, but their DOFs are not separable, thus making the standard metrics ineffective. (See Supplementary Information for a pictorial representation of the DOFs variation for both types of synthetic data sets.)
+With the direct problem stated as above, the goal is to identify the inherent clusters from the high-dimensional data $X$.
+% In this work, we aim to learn a metric that closely represents the maps $M_{DX}$ and $P_k$ , where the map $M_{DX}$ represents the inherent clusters in the high-dimensional data $X$, and maps $P_k$ impose constraints relevant to the compositional continuity in $C$. 
+% This continuity constraint motivates the similarity measure that combines similarity in response space as well as the nearest neighborhood in the corresponding composition space.
+%We generate two sets of synthetic data with varying degree of complexity.
+%In both cases, we generate response curves such that ternary composition diagram is divided into three subsets (phases) with three distinct maps: $P_k: C_{3\times n} \rightarrow D_{3 \times n}$ where $k=1,2,3 $ for each of the three phases shown in ~\Cref{origPhase}.
+
+\begin{table}[h]
+     \centering
+\begin{tabular}{ |l|l| }
+  \hline
+  \multicolumn{2}{|c|}{Test data sets} \\
+  \hline
+  SET A1 & Separable DOFs \\
+  SET A2 & Non-Separable DOFs \\
+  SET B1 & Separable DOFs, Noisy data $\sim \mathcal{N}(0,0.1)$ \\
+  SET B2 & Non-Separable DOFs, Noisy data $\sim \mathcal{N}(0,0.1)$ \\
+  \hline
+\end{tabular}
+    \captionsetup{justification=centering}
+     \caption{Description of data sets used for evaluation. Gaussian noise is added with variance approximately 10 \% of the peak intensity}
+     \label{datasets}
+ \end{table}
+ 
+\subsection{Comparison between several distance measures}
+To learn a metric for data matrix $X$ using the framework introduced earlier, each element in the ternary space is considered as a task. 
+For a ternary system, three tasks are considered. 
+In each task, we define a class by sorting the data points based on corresponding element content and sequentially categorizing the data point.
+The generated data set consists of 435 data points, giving four classes for a given task (each class consists of 100 points, with the remaining 35 points in the last class added to the penultimate class).
+The procedure is repeated for the remaining tasks, giving three sets of incompatible labels.
+
+We will now compare distance metric learned in the MT-LMNN framework (with tasks and classes defined as above) with other commonly used distance measures such as Euclidean, cosine metrics, correlation, dynamic time warping (DTW), etc. 
+% \begin{itemize}
+%     \item Hierarchical clustering algorithm (HCA) with three different linkage options (average, complete, single) with varying number of clusters
+%     \item  Spectral clustering method\cite{ng2002spectral,zelnik2005self} to partition the graph generated on the composition data with weights defined by a similarity measure. The graph is generated using either the 10-nearest neighbor algorithm or Delaunay tessellation. Local scaling of similarity measure mentioned in~\cite{zelnik2005self} is varied from two to six along with a varying number of clusters.
+% \end{itemize}
+For each metric, we use two sets of clustering algorithms (detailed below), with various settings possible:
+\begin{itemize}
+    \item Hierarchical clustering algorithm (HCA) with three different linkage options (average, complete, single) with varying numbers of clusters(for example,~\(\{k_0-1,k_0,k_0+1\}\) where $k_0$ is actual number of clusters).
+    \item  Spectral clustering method\cite{ng2002spectral,zelnik2005self} to partition the graph generated on the composition data with weights defined by a similarity measure. The graph is generated using either the 10-nearest neighbor algorithm or Delaunay tessellation. Local scaling of similarity measure mentioned in~\cite{zelnik2005self} is varied from two to six along with a varying number of clusters (for example,~\(\{k_0-1,k_0,k_0+1\}\) where $k_0$ is actual number of clusters).
+\end{itemize}
+
+Clustering is selected as a indirect way of evaluating the performance (and importance) of a distance measure. In general, clustering aims to find homogeneous subgroups such that data points in each cluster are similar according to the similarity measure.
+If the distance measure can capture the key features defining the similarity (in the context of the output quantity), the subgroups can be separated, and clustering will provide insight into data.
+If informative features are selected, clustering is an appropriate technique to find subgroups in the input data.
+
+The accuracy of clustering is evaluated based on the F-measure calculated using~\Cref{eq41}:
+\begin{equation}\label{eq41}
+    \begin{aligned}
+    & F = \sum_{i=1}^{k} \frac{\abs{A_i}}{N} \underset{j}{\text{max}}  \frac{2R_{ij}P_{ij}}{R_{ij}+P_{ij}}\\
+    & P_{ij}=\frac{\abs{A_i\cap B_j}}{\abs{B_j}}\\
+    & R_{ij}=\frac{\abs{A_i\cap B_j}}{\abs{A_j}}
+    \end{aligned}
+\end{equation}
+where $\abs{\mathcal{A}}$ returns the number of elements in the vector $\mathcal{A}$; $N$ is the total number of samples; $P$ is the precision and $R$ is the recall.
+To calculate the F-measure, pre-defined labels ($A_i$) for phase $i$ are used to compare with labels from the graph partitioning $B_j$.  
+Intuitively, the F-measure evaluates if a group of samples are clustered the same as the known clusters (or phases). 
+If all samples were classified correctly, the F-measure equals one. 
+The lower the value of this measure, the poorer the classification performance. We report the mean value and standard deviation of the F-measure from various clustering settings mentioned above as the stochastic performance measure of the metric on any given data set. This is performed to alleviate any inconsistencies in the F-measure that may arise from various clustering settings. The standard deviation in stochastic F-measures quantifies the consistency (or stability) of clustering for a given distance measure.  This way of looking at the data helps to quantify the effect of the metric on learning a response map.
+
+%{\color{red}In general, the clustering performance is difficult to evaluate~\cite{caruana2006meta}. Several approaches (including F-measure) are being used with their strengths and weaknesses.We list alternative clustering performance evaluation in the Supplementary Information. However, F-measure is the most widely used and accepted by the community~\cite{manning2010introduction}. }
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter-2/figs/SD.eps}
+        \caption{Separable DOFs}
+        \label{errSD}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=\textwidth]{Chapter-2/figs/NSD.eps}
+        \caption{Non-Separable DOFs}
+        \label{errNSD} 
+    \end{subfigure}
+    \vskip\baselineskip
+    \caption{F-measure statistics suggest that the similarity measure learned using MT-LMNN is at least as good as the best similarity measure obtained from exhaustive search over several metrics in all cases. We used Euclidean, cosine, correlation, standardized Euclidean (sEuclidean), city block, Minkowski, Chebychev, Hamming, Jaccard and dynamic time warping (DTW)  for an exhaustive similarity measure search.~\Cref{errSD} corresponds to separable DOFs case,~\Cref{errNSD} corresponds to non-separable DOFs case as described in the text.}
+    \label{errorsDataNoise}
+\end{figure}
+
+\Cref{errorsDataNoise} contains the comparison between the performance of several distances and the approach taken in this work, MT-LMNN. 
+The comparison is performed for two data sets with separable (A1) and non-separable DOFs (A2). 
+Two additional data sets are analyzed with the noise added (data sets annotated with B - see Table~\ref{datasets}). To calculate F-measure statistics, we vary the number of clusters from two to three for all the cluster settings mentioned above.  
+
+Our analysis shows that the similarity measure learned using MT-LMNN augments the ability to find regions with high composition-response correlation.
+MT-LMNN is at least as good as the best distance measure obtained from an exhaustive search sometimes outperforming the complex, more sophisticated dynamic time warping (DTW). % Unlike DTW (which has the best stochastic F-measure in SET A1, A2 ), MT-LMNN is insensitive to the effect of noise (SET B2). %
+We also note that analysis of each of the four data sets considered in~\Cref{datasets} resulted in four different measures as the best. However, MT-LMNN's performance was comparable to the best distance measure for SET A1, A2 (i.e., DTW) while producing the best accuracy in SET B2 (complex data set of the four). This also highlights the ability of MT-LMNN to quantify similarity automatically without any expert knowledge about the data that is required to select DTW or Chebychev.
+
+We attribute the excellent performance of MT-LMNN to the local learning characteristics. 
+The metric is learned in a small local neighborhood of each data point (determined by its classes). Learning a metric locally in a small neighborhood defined by the design space variable helps the clustering method to identify phases where the data responses are highly correlated but undergo systematic variation with the design space.
+Results presented in this work demonstrate that this approach is robust even for the variation in degrees of freedom over a large range of composition. 
+
+We would like to note that although the F-measure is widely used and accepted by the community~\cite{manning2010introduction}, it may not represent a pure performance of clustering~\cite{powers2015f}. However, there is no other good alternative to address the performance of clustering. 
+To check if different conclusion is reached for other clustering performance measures, we performed the analogous analysis for other measures. 
+We performed the analysis for four other performance measures: the adjusted rand index, the adjusted mutual information, the normalized mutual  information and Fowlkes-Mallows scores. 
+Interestingly, regardless of selected performance evaluation measure, we reached the same observation. 
+We additionally performed the one-sided paired t-test between MT-LMNN and the best metric.
+We designed the hypothesis test to classify how similar (or dissimilar) are two metrics in terms of any given clustering performance measure distribution over clustering settings that are varied.  
+Our additional analysis reiterates the main conclusion that MT-LMNN is at least as good as the best distance measure obtained from the exhaustive search.
+
+\input{Chapter-2/sup_ttest}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Phase diagram construction from XRD measurements}
+
+\subsubsection{Data description}
+In this section, we use the labeled data sets by Long et al. \cite{long2007rapid}. 
+This data set corresponds to the ternary library of Fe-Pd-Ga prepared by elemental sputtering. 
+The data set contains 278 diffractograms (each of 1616 dimensions), and the corresponding composition map. 
+The diffraction patterns are collected in 1D intensity versus 2$\theta$ diffractograms. 
+The labeled data from \cite{long2007rapid} is available as sample data sets with Gphase~\cite{xiong2017automated} -- a software for clustering analysis using graph partition of high-throughput experimental data.
+This data set was used by Iwasaki et al. in\cite{iwasaki2017comparison} to compare various distance measures and their performance to determine the phase diagrams of this system. 
+
+
+\subsubsection{Comparison between several distance measures}
+Similar to the previous case study with model cyclic voltammetry data, we compare the performance of several similarity measures against MT-LMNN.
+The metric is learned on the data matrix $X_{1616\times278}$ with tasks and classes defined using the procedure briefed for synthetic data with a segmentation after every 75th sorted data point under a given task. 
+To balance the data dimensions, we reduce the dimensionality of $X$ by projecting the data onto its leading principal components sufficient to capture \(100\%\) variance. 
+As an outcome, the dimensionality of the input data is reduced from 1616 to 191. 
+
+
+We compute the stochastic F-measure for each of the distance measures using the procedure briefed in the previous section with a varying number of clusters from five to seven. 
+To compute the F-measure, we used labels from~\cite{long2007rapid}.
+A summary of our results is depicted in~\Cref{errorsFePdGa}. 
+The phase diagram reported in~\cite{long2007rapid} has six clusters and they can be seen in~\Cref{refFePdGa}, with each cluster being annotated with a single color and a unique numeric index.
+\Cref{errorsFePdGa} shows the stochastic F-measure for each of the distance measures considered with the best performing measure highlighted in the black circle and our method in the red circle. 
+It can be observed that performance of MT-LMNN is as good as the best performing distance measure. 
+
+
+Although the similarity measure computed using correlation has the best performance in terms of F-measure, it splits the single phase with a systematic variation in peak position (Cluster 4 in~\Cref{refFePdGa}) into two clusters (1 and 4 in~\Cref{FePdGaCorr}).
+In contrast, the MT-LMNN--based similarity measure identifies the phase with peak shift to be a single cluster (4 in \Cref{FePdGaMLPD}). 
+This example demonstrates that in this case the learned distance measure is shift resilient.  This is of high importance as shift resiliency is one of the critical issues stated for XRD phase identification~\cite{iwasaki2017comparison,hattrick2016perspective}. The split region near the Fe-lean region in~\Cref{FePdGaMLPD} is an interesting case and requires further study. Recently~\cite{bunn2016semi} it has been reported that the Fe-Pd-Ga data set has two unknown phases near the Fe lean end (Figure 3 a,b in~\cite{bunn2016semi}). It is possible that this split region is linked to these unknown phases.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=1\textwidth]{Chapter-2/figs/fig5a.eps}
+        \caption{Phase diagram reported in \cite{long2007rapid}}
+        \label{refFePdGa}
+    \end{subfigure}
+    \quad
+        \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=1\textwidth]{Chapter-2/figs/fig5b.eps}
+        \caption{F-measure statistics}
+        \label{errorsFePdGa}
+    \end{subfigure}
+    \quad
+    \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=0.8\textwidth]{Chapter-2/figs/fig5c.eps}
+        \caption{Phase diagram using correlation}
+        \label{FePdGaCorr}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.475\textwidth} 
+        \centering 
+        \includegraphics[width=0.8\textwidth]{Chapter-2/figs/fig5d.eps}
+        \caption{Phase diagram using MTML}
+        \label{FePdGaMLPD}
+    \end{subfigure}
+\caption{Comparison of phase diagram deduced using various similarity measure. \Cref{FePdGaCorr,FePdGaMLPD} depict the representative phase diagrams (most frequent or stable for among various clustering settings/parameters used for the true number of clusters).}
+    \label{FePdGa}
+\end{figure}

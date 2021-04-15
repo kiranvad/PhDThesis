@@ -1,0 +1,33 @@
+\section{Bayesian Model Selection}
+The BMS is a tool to identify a preferred model from a family of parametric probability distributions, each of which can explain the observed data with differing degrees of fidelity. 
+Using a supervised learning procedure that compares an input \(\textbf{X}\) and output \(\textbf{y}\), we compute a model posterior using Bayes rule to select the model that best explains the observed data \(\mathcal{D}=(\textbf{X},\textbf{y})\). 
+
+Here, given the observed data \(\mathcal{D}=(\textbf{X}, \textbf{y})\), we compute probability that the data is sampled from any given model encoding our prior information. 
+Computed posterior probabilities will be used as a score to differentiate whether the collected response (for example, a CV response at any input location in the search space of materials) is a target~(with higher probability for the corresponding target model) or not. 
+In this chapter, we use both BMS and active learning in a related but different context. 
+BMS is used with observed data encoding a single CV curve while active learning is used in the search space with their corresponding binary labels~(i.e. a target or not) as observed data. 
+Moreover, BMS is used as an oracle for the active learning task with models \(\mathcal{M}_j\) as \(\mathcal{GP}\).
+
+For each model \(\mathcal{M}\) with a parameter index \(\theta\)-- a concatenated vector of hyper-parameters-- we first compute model evidence \(p(\textbf{y}\vert \textbf{X},\mathcal{M})\) on the observed data \(\mathcal{D}=(\textbf{X}, \textbf{y})\):
+\begin{equation}
+    p(\textbf{y}\vert \textbf{X},\mathcal{M}) = \int p(\textbf{y}\vert \textbf{X},\theta,\mathcal{M})p(\theta\vert \mathcal{M}) \diff \theta
+\label{eq:evidM}
+\end{equation}
+where \(p(\textbf{y}\vert \textbf{X},\theta,\mathcal{M})\) is probability of obtaining outputs \(\textbf{y}\) given input data \(\textbf{X}\) and a model \(\mathcal{M}\). \(p(\theta\vert \mathcal{M})\) represents distribution of parameter \(\theta\) for any given model \(\mathcal{M}\).
+
+To understand which model to prefer from a finite set of models  \(\bigl\{\mathcal{M}_i\bigr\}_{i=1}^n\), we apply the Bayes rule to compute the posterior probability of each model \(\mathcal{M}_{j}(j\in\{1,2,..n\})\) given data \(\mathcal{D}\) using the posterior of~\Cref{eq:evidM}: 
+\begin{equation}
+    p(\mathcal{M}_j\vert \mathcal{D}) = \frac{p(\textbf{y}\vert \textbf{X},\mathcal{M}_j)p(\mathcal{M})}{p(\textbf{y},\textbf{X})}
+    \label{eq:postM}
+\end{equation}
+where \(p(\mathcal{M})\) represents a prior over the finite set of models that is typically taken to be uniform i.e. no prior preference to any single model. 
+One common approach is to use logarithm of the probability which can be interpreted as the information content of a probability model given data. 
+Taking the logarithm of~\Cref{eq:postM}, we get the following~(See Supplementary Information): 
+\begin{equation}
+    \log p(\mathcal{M}_j\vert \mathcal{D}) = -\log \left [ 1+\sum_{i\neq j}^{n} \frac{p(\textbf{y}\vert \textbf{X},\mathcal{M}_i)}{p(\textbf{y}\vert \textbf{X},\mathcal{M}_j)}\right]
+\label{eq:logPostM}
+\end{equation}
+
+
+
+

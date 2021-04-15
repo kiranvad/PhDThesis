@@ -111,7 +111,6 @@
 \usepackage{pstricks}
 \usepackage{sgamevar}
 \usepackage{egameps}
-\usepackage{cleveref}
 \def\citeapos#1{\citeauthor{#1}'s \citeyear{#1}}
 \newenvironment{my_enumerate}
 {\begin{enumerate}
@@ -142,9 +141,11 @@
 %
 % To use the hyperref package, uncomment the following line:
 \usepackage[colorlinks=true,urlcolor=purple,citecolor=green,linkcolor=blue]{hyperref}
+\usepackage{cleveref}
 %
 % Note that you should also uncomment the following line:
 \renewcommand{\theHchapter}{\thepart.\thechapter}
+
 %
 % to work around some problem hyperref has with the fact
 % the psuthesis class has unnumbered pages after which page
@@ -205,20 +206,20 @@
 % Input reader information below. The optional argument, which
 % comes first, goes on the second line before the name.
 \advisor[Thesis Advisor]
-        {Olga Wodo}
+        {Olga Wodo, Ph.D.}
         {Assistant Professor, Department of Materials Design and Innovation}
         
 \readerone[Thesis Advisor]
-        {Krishna Rajan}
+        {Krishna Rajan, Ph.D.}
         {Professor, Department of Materials Design and Innovation}
 
 \readertwo[Committee Member]
-          {Bruce E. Pitman}
-          {Professor, Department of Materials Design and Innovation}
+        {Bruce E. Pitman, Ph.D.}
+        {Professor, Department of Materials Design and Innovation}
           
 \readerthree[External Committee Member]
-          {Jaroslaw Zola}
-          {Associate Professor, Department of Computer Science and Engineering}          
+        {Jaroslaw Zola, Ph.D.}
+        {Associate Professor, Department of Computer Science and Engineering}          
 
 % Makes use of LaTeX's include facility. Add as many chapters
 % and appendices as you like.

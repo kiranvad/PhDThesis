@@ -1,0 +1,75 @@
+In this chapter, we discuss challenges related to designing a data analytics tool for clustering high-throughput measurements performed on the compositional library of materials. 
+The critical aspects of the proposed methodology are (i) learning the similarity measures, as opposed to using fixed similarity measures (e.g., Euclidean distance, dynamic time warping), while (ii) imposing the similarity in the composition space. 
+The methodology presented in this chapter is based on the multi-task learning approach that is formulated to account for the composition neighborhoods of the compositional libraries.
+
+The advantages of our methodology are demonstrated for the library of cyclic voltammetry curves generated for model multi-metal catalysts, as well as X-ray diffraction patterns from experimental studies.
+The proposed approach is compared with the current state-of-the-art methods used in similar problems. 
+This work has important implications for designing high-throughput exploration including catalysts for electrochemical systems, such as fuel cells and metal-air batteries. 
+
+\section{Introduction}
+The Materials Genome Initiative (MGI)~\cite{white2012materials,green2017fulfilling} stimulated progress in material screening to discover new materials at a fraction of the cost.  
+To fully unlock the power of high-throughput material screening, three areas must be capable of fast and automated processing: material fabrication, characterization, and data analytics.
+Significant progress has been made in the fabrication and characterization stages of the discovery process. 
+For example, high-throughput inkjet printing has been used to make a library of materials and characterizing them (e.g., XRD diffractograms to identify atomic structure) in a matter of hours~\cite{koinuma2004combinatorial,takeuchi2002combinatorial}.
+However, these advances have not been paralleled by the data analytic tools allowing knowledge extraction, and more important, the guidance for the next round of experiments. 
+
+The data analysis of high-throughput experiments is particularly challenging due to the high uncertainty of the underlying physical phenomena related to the material properties, characterization details and the fabrication process itself. 
+This is not surprising if one considers that little if any information, is known about screened materials including their behavior during the fabrication and characterization. 
+In addition, if the physical laws guiding the extraction of material properties are undetermined or uncertain, data-driven approaches emerge as an apparent choice. However, these approaches may face significant challenges; for example, if design space is inadequately sampled (unknown a priori).  
+
+In this chapter, several challenges related to the high dimensionality of measurements, choosing similarity measures and discovering sub groups in the data sets from high-throughput experiments are discussed.
+The multi-task metric learning (MTML) is used to automatically learn a similarity measure of the experimental response data while respecting the composition similarity -- an important aspect to learn composition-response relationships for material libraries.
+The MTML is a generic method to handle composition-response maps, but in this chapter, its robustness is demonstrated for two data sets:
+(i) X-ray diffraction patterns to determine the phase diagram using experimentally collected data~\cite{long2007rapid}, and
+(ii) cyclic voltammetry curves to determine highly correlated composition-response regions using synthetic data generated to mimic catalytic processes. 
+
+\section{Background}
+High-throughput exploration (HTE) starts with fabrication of the library of materials where the design variable is gradually sampled with some increment. 
+For example, in a multi-component system, the composition of individual elements is varied resulting in the library of hundreds of samples~\cite{haber2014high}.
+In the next step, a systematic characterization of each sample from the library is carried out. 
+For example, X-ray diffraction patterns are measured to identify the atomic structure of synthesized samples~\cite{long2007rapid}. 
+Compositional libraries with the XRD measurements have gained significant attention and have been analyzed using various techniques~\cite{Kusne2015HighthroughputDO,xiong2017automated}. 
+This is not surprising as determining the phase diagram is the first step to understanding the behavior of the materials.
+Finally, given the systematic material preparation and data collection, the goal for data analytic tools is to group the measurements such that materials in individual groups share some features in the measurements that inform the materials discovery process.
+For example, in the case of XRD, the underlying assumption of this characterization is that phases emit a unique diffraction pattern, for example, the set of peaks. Hence, by identifying the set of unique patterns, the set of phases in the libraries can be determined. 
+Moreover, the set of phases can be mapped to the samples in the compositional library and collectively represented as a phase diagram. 
+However, due to the complexity of the XRD measurement (e.g., the diffraction data is collected in angular space to infer information about the lattice structure), the signal may be sensitive to lattice expansion or contraction, sample surface texture, etc~\cite{iwasaki2017comparison}.
+For example, two samples with the same phase but small lattice distortion may give different XRD signals.
+This may lead to the ambiguity in the interpretation, but also poses a challenge for data analytics. 
+Specifically, the data analytics should be able to differentiate signals originating from different phases and cluster signals originating from the same phase while taking into account the susceptibility inherent to given measurement techniques. 
+In practice, the comparison between individual signals is performed using some form of distance measure. 
+Once distances are measured, the grouping can be performed such that object/samples similar to each other are grouped/clustered. 
+GRENDEL~\cite{Kusne2015HighthroughputDO}, Gphase~\cite{xiong2017automated} have been introduced to tackle the problem of finding phase diagram from high-dimensional XRD diffractograms.  
+Other approaches that do not directly involve clustering have been also applied. 
+These approaches include constrained matrix factorization~\cite{bras2010computational} and a semi-supervised classifier SS-AutoPhase~\cite{bunn2016semi}. 
+The former approach decomposes the diffractograms into basis patterns corresponding to individual phases. 
+The latter approach uses a clustering algorithm to down select the representative diffractograms to be labelled by human. Using these labels, a classifier is trained to label the remainder of the diffractograms.
+A comprehensive review of the existing methods to determine a phase diagram by clustering XRD data can be found in ~\cite{hattrick2016perspective}.
+
+This discussion is not unique to phase diagram construction from XRD measurements. It is instead an example of a larger class of data analytics and unsupervised learning to discover composition-response maps.
+The problem of grouping signals from high-throughput exploration to learn the properties of materials is generic to the materials screening and transpires into a myriad of characterization techniques. 
+This work has been inspired by the cyclic voltammetry (CV) characterization to unravel electrochemical regimes in electrochemical systems, such as catalysts used in fuel cells and metal-air batteries.
+In contrast to XRD data, a typical workflow for analyzing the libraries of CV curves involves extracting figure of merit (FOM) and seeking the trends across the compositional space to down select samples (i.e., make the transition from high-throughput to low-throughput)~\cite{haber2014high,haber2014discovering}. 
+The goal of data analytics in such cases would be to find regions where a systematic variation in design space gives rise to systematic variation in response (e.g., composition regions with strong composition-response correlations). 
+In \cite{suram2015generating} a genetic programming-based algorithm is introduced to find highly correlated composition-response regions in high-throughput CV data using an expert-defined FOM. 
+However, this method has not been extended for high-dimensional responses. 
+
+\input{Chapter-2/importanceOfDistanceMeasure}
+
+Once an appropriate similarity measure is computed, one can use off-the-shelf clustering methods such as agglomerative hierarchical clustering or, weighted graph partition, both of which rely on the similarity measure. A comprehensive discussion of clustering methods can be found elsewhere \cite{friedman2001elements}.
+
+\par In this work, we adopt the state-of-the-art metric learning algorithm from machine learning to compute a physics-informed similarity measure. To our knowledge, this is the first attempt to learn a similarity measure for data analytics of material libraries. In particular, we demonstrate how learning a similarity measure can be posed as a multi-task metric learning (MTML) problem in machine learning.
+We demonstrate the robustness of MTML for two types of measurements:
+(i) the CV curves, as it directly motivated this work, and 
+(ii) the Fe-Pd-Ga XRD data set~\cite{long2007rapid}, as it is a well-studied problem with several publicly available, expert-labeled data sets. 
+
+\input{Chapter-2/method}
+\input{Chapter-2/results}
+\section{Conclusions}
+In this chapter, we introduced a distance measure learning approach into the data analytics for compositional libraries. 
+A metric was learned from the data using the composition information about the design space. 
+This is in contrast to the exhaustive search for a suitable distance measure.
+Two case studies consisting of model cyclic voltammetry and experimental XRD responses as high-dimensional signals are presented and evaluated using a variety of statistical tests.
+We showed that our method has the ability to identify regions in the design space where a systematic variation in design variable gives rise to systematic variation in response. 
+Using a model electrochemistry data, we showed that a distance measure learned using our approach is at least as good as the metric chosen using an exhaustive search.
+Through various test cases, we have shown that learning a similarity measure using MT-LMNN has the ability to automatically quantify the similarity measure for any given data set. This makes MT-LMNN a better alternative to an exhaustive search of complex and data specific metrics as well as a promising approach for automated distance learning for compositional libraries. 

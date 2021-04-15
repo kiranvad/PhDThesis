@@ -10,7 +10,8 @@
 \usepackage{mfirstuc}
 \usepackage{multirow}
 \usepackage{subcaption}
-
+\usepackage[version=3]{mhchem}
+\usepackage{physics}
 \newcommand{\engine}{Emulation Engine}
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
@@ -18,3 +19,19 @@
 
 \usepackage{setspace}
 \doublespacing
+\newcommand*\mycommand[1]{\texttt{\emph{#1}}}
+\newcommand{\abs}[1]{\lvert{#1}\rvert}
+
+\newcounter{chem}
+\newcounter{temp}
+\newenvironment{chequation}{%
+  \setcounter{temp}{\value{equation}}%
+  \setcounter{equation}{\value{chem}}%
+  \renewcommand{\theequation}{R\arabic{equation}}%
+}{%
+  \setcounter{chem}{\value{equation}}%
+  \setcounter{equation}{\value{temp}}%
+}
+\DeclareMathOperator*{\argmax}{argmax} 
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}

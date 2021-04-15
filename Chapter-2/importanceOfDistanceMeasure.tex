@@ -1,0 +1,24 @@
+\subsection{Importance of distance measure}
+Learning a relationship between a design variable (e.g., a composition of multi-metal oxide catalyst) and the response from HTE through data analytics faces several challenges. 
+First, the measured responses from individual samples are typically represented as high-dimensional vectors (hundreds of measurements for each sample). A similarity measure between any two high-dimensional vector responses is defined using a distance metric to capture the statistical relation to its neighbors in the high-dimensional space that forms clusters.
+This leads to the curse of dimensionality.
+One of the consequences of this curse is that for the increasing number of dimensions, the distance from the query to its nearest and farthest may be similar~\cite{bellman1961curse}. 
+In such cases, many distance functions are less effective. 
+In particular, some distance functions produce uniform distances for data points similarly spaced apart in different dimensions.
+Such ineffectiveness in identifying (dis)similar data points affects the clustering method. 
+For example, it has been shown that the most popular Euclidean distance exhibits poor performance and is counter-intuitive for higher dimensions~\cite{aggarwal2001surprising}.
+Selecting a proper similarity measure is more important in obtaining success with clustering than the clustering algorithm itself~\cite{friedman2001elements}. 
+In an ideal case scenario, a good distance measure captures relationships between data points and produces well-separated clusters in some projected space, making clustering a fairly straightforward problem. 
+
+The distance measure can be chosen from a large pool of canonical distance functions (e.g., Euclidean, Manhattan, Mahalanobis,  Minkowski, cosine), a distance between distributions (e.g., earth mover distance, Kullback-Leibler divergence) or hand designed distance functions (e.g., shape context matching). 
+The above mentioned distance functions have been used for HTE studies as well~\cite{iwasaki2017comparison,hattrick2016perspective,hernandez2016using}.
+A distance measure can also be learned from training data that are labeled. 
+In such a case, the labeled data are used to narrow down features (e.g., dimensions) that are discriminant for the classes in the analyzed data set. 
+For example, linear discriminant analysis (LDA) projects a data set onto a lower-dimensional space with good class-separability. 
+Such a projection can be seen as finding a better representation of data (a pre-processing transformation) or considered as equivalent to the feature selection problem.
+
+In real-life applications, including HTE, the labels are not easily available. 
+This excludes many distance learning approaches and supervised techniques. 
+However, a distance measure can still be learned if some form of domain-information exists to augment the data set. The domain information can be provided in terms of explicit labels or equivalence constraints~\cite{bar2005learning}.
+For example, in the high-throughput exploration of composition libraries that are considered in this work, it is expected that samples that give similar responses should also be close in the composition space. 
+In this sense, the composition of samples can be considered as a domain-information for the distance measure learning problem.
