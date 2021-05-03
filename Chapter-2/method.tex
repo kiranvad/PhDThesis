@@ -85,7 +85,7 @@ One can select the regularization coefficients in~\Cref{regM} through hyperparam
 Intuitively, if regularized coefficients are selected, metric learning results in a single shared metric \(\mathbf{M_0}\) that finds general trends in the data while accurately classifying data points for all tasks. 
 This is equivalent to learning a similarity measure for the high-dimensional responses, which respects the similarity in terms of the composition (i.e., since \(\mathbf{M_0}\) can classify data points based on relative chemical content for all the elements, it knows the relative location of a data point in composition space).   
 
-Once a metric \(\mathbf{M_0}\) is learned via MT-LMNN, it is used in conjunction with the off-the-shelf clustering algorithms to find clusters in the design space. The generic workflow proposed in this paper consists of the following steps: 
+Once a metric \(\mathbf{M_0}\) is learned via MT-LMNN, it is used in conjunction with the off-the-shelf clustering algorithms to find clusters in the design space. The generic workflow proposed in this chapter consists of the following steps: 
 \begin{enumerate}
 \item Data obtained from HTE is stored in a matrix $X$ (each column is a response for each sample).
 \item A generalized Mahalanobis metric \(\mathbf{M_0}\) is learned on $X$ such that it emphasizes similarity in terms of response as well as a design variable (composition).

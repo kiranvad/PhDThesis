@@ -1,27 +1,27 @@
 \chapter{Conclusion}\label{Chapter 5}
-The primary goal of this thesis is to evaluate the use of data representations for application of machine learning to material discovery.
+The primary goal of this thesis is to evaluate the use of data representations for the application of machine learning to material discovery.
 Towards this goal, three case studies with different objectives in terms of the down-stream data analysis/machine learning tasks are shown in this thesis. 
 First case study described in Section~\ref{chapter2} involved studying the similarity(distance) measure used in the tasks of partitioning a grid of materials based on signaled data.
 A distance measure learning approach is introduced into the data analytics for compositional libraries to account for compositional continuity of spectral data collected on a grid. 
-A metric was learned from the data while leveraging the composition information about the design space. 
-This is in contrast to the exhaustive search of distance measure and provides a automated way of selecting a metric.
+A metric was learned from the data defined as a high-dimensional signal on a composition grid. 
+This is in contrast to the exhaustive search of distance measure and provides a automated way of \textit{learning} a metric from the data.
 The robustness of this approach was demonstrated using two case studies. 
-First, the framework is evaluated using synthetically generated data sets of cyclic voltammetry measurements. 
-Next, the framework is applied to XRD data to construct the phase diagram in an automated fashion and compare it to expert labelled phase diagram.
+First, the framework is evaluated using synthetically generated signal of cyclic voltammetry measurements. 
+Next, the framework is applied to XRD signals to construct the phase diagram in an automated fashion and compare it to expert labelled phase diagram.
 The method was able to identify regions in the design space where a systematic variation in design variable gives rise to systematic variation in response.
 The proposed method is at least as good as the metric chosen using an exhaustive search.
-The case studies also shows that the proposed approach has the ability to automatically quantify the similarity measure signaled data collected for compositional libraries. 
+The case studies also shows the proposed approach's ability to automatically quantify the similarity measure of signals collected over compositional libraries. 
 
 
 In the second research task in Section~\ref{chapter3}, a \(\mathcal{GP}\)-based oracle for materials discovery using cyclic voltammetry was defined and evaluated.
-Next, the oracle was combined with a state-of-the-art active batch search to identify condition resulting in the targeted shape of CV curve. 
-A high throughput combinatorial search was demonstrated to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search (with a discrete sampling of modest 5 levels per dimension). 
-This work has implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
-Specifically,the illustrated framework can be used to identify S-shaped CV curves. 
+The goal in this case study is to evaluate the oracle's ability to identify condition resulting in the targeted shape of CV curve when combined with a state-of-the-art active batch search.
+A high throughput combinatorial search was demonstrated to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search. 
+The framework proposed in Section~\ref{chapter3} has implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
 Once S-shaped CV curve is obtained, a foot of the wave analysis can be applied ~\cite{FOWA} to extract rate constant for rate determining step, overpotential dependent turn over frequency etc.
 In this sense the proposed method has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
 
 
 As a third case study, a data exploratory analysis is described in Section~\ref{chapter4} for phase diagram generation with the capabilities to evaluate for physical and computational accuracy. 
-A data-analysis pipeline is used to perform initial screening of materials to identify subgroups there by decreasing the number of samples to be studied by an expert.
+A data-analysis pipeline is then used to perform initial screening of materials to identify subgroups there by down-selecting the samples to be studied by an expert.
 Applying the methodology to two sets of material systems to demonstrate the derivation of design rules for solvent selection in OSC manufacturing.
+In the above presented case studies, the success can be attributed to data representations both qualitatively (in terms of physics encoded and interpretation of models) and quantitatively (acceleration in down stream tasks).

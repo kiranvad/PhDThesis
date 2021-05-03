@@ -2,9 +2,9 @@
 A \(\mathcal{GP}\) is a distribution over smooth latent functions \(g: \mathcal{X} \rightarrow \mathbb{R}\). 
 Assuming the observation model \(p(y\vert g)\) is known, the standard approach is to use non-parametric Bayesian approach by placing a \(\mathcal{GP}\) distribution over \(g\), i.e. \(p(g)=\mathcal{GP}\big(\mu(x),k(x,x')\big)\). 
 Here \(\mu(x):\mathcal{X}\rightarrow \mathbb{R}\) is a mean function and \(k(x,x'):\mathcal{X}\times\mathcal{X}\rightarrow \mathbb{R}\) is a covariance function. 
-A function-space viewpoint provides an intuitive explanation of \(\mathcal{GP}\) as vector space of functions in a chosen (potentially non-linear) feature space which \(\phi(x)\) as a basis. 
+A function-space viewpoint provides an intuitive explanation of \(\mathcal{GP}\) as vector space of functions in a chosen (potentially non-linear) feature space with \(\phi(x)\) as a basis. 
 In the function space representation, the observation model plays the role of weights \(W\) with function \(g\) represented using \(g(x) = \phi(x)^{\top}W\). 
-It can be shown~(see Supplementary Information) that \(\phi(x)\) can be implicitly defined using the covariance function \(k(x,x')\) between pair of inputs \(x,x'\in\mathcal{X}\) and a mean function \(\mu(x)\) of \(W\)~\footnote{for this reason we use \(k(x,x')\) and basis function of \(\mathcal{GP}\) interchangeably in this paper}. 
+It can be shown~(see \Cref{appendixB}) that \(\phi(x)\) can be implicitly defined using the covariance function \(k(x,x')\) between pair of inputs \(x,x'\in\mathcal{X}\) and a mean function \(\mu(x)\) of \(W\)~\footnote{for this reason we use \(k(x,x')\) and basis function of \(\mathcal{GP}\) interchangeably in this thesis}. 
 The mean function \(\mu\) encodes an average behavior of the function \(g\). 
 The covariance function \(k(x,x')\) encodes the correlations between outputs \(g(x), g(x')\) for any given pair of input points~(\(x,x'\)). 
 In this chapter, the concatenated vector of the parameters \(\mu(x)\) and \(k(x,x')\) is denoted as \(\theta\).
@@ -16,9 +16,9 @@ The voltage load \(V(t)\) is typically chosen to be linear and the voltammetry i
 Classification of a CV into an S-shape (or not S-shape) can be looked at as determining a model evidence of a function defined by CV curve \( (v,t) \mapsto I\) under a \(\mathcal{GP}\) function space with observed data \(\mathcal{D}\) given by the discrete CV curve \(\textbf{X} = I, \textbf{y}=(v,t)\). 
 The covariance of a CV curve gives rise to the basis functions in the \(\mathcal{GP}\) space and the time-voltage grid becomes the input space where the function is evaluated.
 For any given CV curve, its representation in the \(\mathcal{GP}\) function space  is obtained by finding a \(\theta\) that maximize the posterior probability \(p(\textbf{X} = I|\textbf{y}=(v,t))\)~\footnote{we use the \textit{maximum a posteriori} or MAP estimation}.
-The \(\mathcal{GP}\) model is chosen with a \textit{non-stationary} covariance as a target model~\(\mathcal{M}_2\). 
+The \(\mathcal{GP}\) model is chosen with a \textit{non-stationary} covariance as the target model~\(\mathcal{M}_2\). 
 It follows from the reproducing kernel Hilbert space~(RKHS) theorem~(Ch 12.4 in \cite{mathML}) that any smooth function can be represented using a kernel or a covariance function.
-Thus for the null model~(\(\mathcal{M}_1\)), it is sufficient to use a \(\mathcal{GP}\) with smoothness controllable covariance function. 
+Thus for the null model~(\(\mathcal{M}_1\)), it is sufficient to use a \(\mathcal{GP}\) with a smoothness controllable covariance function. 
 A brief overview of the covariance functions selected as basis functions is described below.
 For both models \(\mathcal{M}_1\) and \(\mathcal{M}_2\), the mean function is chosen to be \(\mu(x)=0 \) as we normalize the response curves \(I(v,t)\) to be with in \((0,1)\) and expect the covariance function to determine the shape of the CV curve. 
 

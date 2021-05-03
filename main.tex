@@ -111,6 +111,8 @@
 \usepackage{pstricks}
 \usepackage{sgamevar}
 \usepackage{egameps}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{outlines}
 \def\citeapos#1{\citeauthor{#1}'s \citeyear{#1}}
 \newenvironment{my_enumerate}
 {\begin{enumerate}
@@ -322,6 +324,7 @@ Appendix-B/main%
 \include{Chapter-3/main}
 \include{Chapter-4/main}
 \include{Chapter-5/main}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Appendices
 %
@@ -331,8 +334,8 @@ Appendix-B/main%
 % sequence. Since the PSU Grad School requires
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
-% \include{Appendix-A/main}
-% \include{Appendix-B/main}
+\include{Appendix-A/main}
+\include{Appendix-B/main}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ESM students need to include a Nontechnical Abstract as the %
 % last appendix.                                              %

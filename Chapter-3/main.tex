@@ -15,21 +15,20 @@ The framework has the potential to be a powerful virtual screening technique for
 \input{Chapter-3/method_gps}
 
 \section{Results}
-To demonstrate the application of active search for S-shaped CV curves, we choose a classic EC-mechanism, that consists of two reactions: E and C (\Cref{E} and \Cref{C}) corresponding to one electron transfer reaction (E) and one chemical reaction (C), respectively. 
-EC-mechanism is selected as it is a well studied mechanism~\cite{rountree2014evaluation, costentin2015cyclic} that produces a variety of CV shapes thus serves as a good test case for the oracle proposed in this paper. 
+To demonstrate the application of active search for S-shaped CV curves, we choose to simulate CV curves of a classic EC-mechanism, that consists of two reactions: E and C (\Cref{E} and \Cref{C}) corresponding to one electron transfer reaction (E) and one chemical reaction (C), respectively. 
+EC-mechanism is selected as it is a well studied mechanism~\cite{rountree2014evaluation, costentin2015cyclic} that produces a variety of CV shapes thus serves as a good test case for the oracle described earlier. 
 In this work, we use the MECSim simulator~\cite{MECSim} to generate CV curves on demand. 
 
 \input{Chapter-3/results_data}
 \input{Chapter-3/results_abs}
 
 \section{Conclusion and future work}
-In conclusion, we defined and evaluated a \(\mathcal{GP}\)-based oracle for materials discovery using cyclic voltammetry.
-Next, we combined the oracle with a state-of-the-art active batch search to identify condition resulting in the targeted shape of CV curve. 
-We demonstrated a robust high throughput combinatorial search to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search (with a discrete sampling of modest 5 levels per dimension). 
+In conclusion, \(\mathcal{GP}\)-based oracle is defined and evaluated for materials discovery using cyclic voltammetry.
+Next, the oracle is combined with a state-of-the-art active batch search to identify conditions resulting in the targeted shape of CV curve. 
+A robust high throughput combinatorial search is demonstrated to find the target responses using only \(<6\%\) of total number of CV experiments from the corresponding exhaustive search. 
 
-This work has implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
-Specifically, we have illustrated a framework that can be used to identify S-shaped CV curves. 
-Once S-shaped CV curve is obtained, a foot of the wave analysis can be applied ~\cite{FOWA} to extract rate constant for rate determining step, overpotential dependent turn over frequency etc.
-In this sense our method has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
+As a future outlook, I anticipate that this work will have implications in identification of characterization conditions where kinetic knowledge extraction from the cyclic voltammetry can be preformed more effectively. 
+Specifically, as illustrated using the active search framework, identification of S-shaped CV curves can lead to approximation rate constant of rate determining step. 
+In this sense the framework discussed in this chapter has applications in accelerated knowledge extraction, with the application in screening for target catalysts including the bi-functional alkaline fuel cell catalysts that motivated this work.
 
-\input{Chapter-3/Supplementary.tex}
+

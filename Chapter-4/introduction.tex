@@ -1,0 +1,44 @@
+\section{Introduction}
+Organic thin films made of conjugated polymers and/or small molecules have captured the interest of the organic electronics industry due to their wide range of alterable properties (e.g., color of light emission and solubility in organic solvents). 
+Of those properties, solubility crucially facilitates solution-based polymer processing from the liquid phase, making the materials ideal for rapid, inexpensive, large-scale, low-temperature roll-to-roll fabrication. 
+Other important properties are flexibility, stretchability, softness, and compatibility with biological systems, all of which are typically absent in conventional silicon-based solutions. 
+For these reasons, organic thin films have the potential to revolutionize the next generation of electronic devices within a wide array of technologies, including organic transistors, organic solar cells (OSC), and implantable medical devices and sensors.
+At the current state-of-the-art, multiple processing variants exist (e.g., spin coating, doctor blading, casting, roll-to-roll manufacturing), as well as multiple variants tailored for specific materials systems (e.g., blend of polymers and small molecules).  
+This proliferation of processing variants is driven by the realization that small changes in the processing can significantly improve a device's performance. 
+Classic examples include changing solvents~\cite{Shaheen2001} and adding thermal annealing as a post-processing step, which have together generated organic solar cells with efficiency increased by two orders of magnitude. 
+However, processing variants have been all chosen as a result of trial-and-error approaches. 
+Consequently, it has remained challenging to establish reliable generalizations of material-process-morphology relationships that can be used to invert those relationships and inform new solvent-based manufacturing variant design.
+In this chapter, we use the phase diagram as a representation of the thermodynamics characteristics with the goal of deriving the design rules for solvent selection in organic solar cells. 
+
+Organic Solar Cells~(OSC), the direct application for this work, typically consists of a donor and acceptor materials sandwiched between two electrodes.
+Conjugated polymer is typically selected as an electron donor, fullerene (or another polymer) is typically selected as an acceptor. 
+OSC are manufactured using various methods of which we are interested in solvent based techniques where donor and acceptor polymers are mixed in a volatile solvent(s)~\cite{krebs2009fabrication}. 
+During the manufacturing process, the solvent evaporates to form the morphology. 
+Solvent evaporation directs the morphology evolution, and the choice of the solvent is of high importance for the final efficiency of the devices~\cite{Shaheen2001}. 
+The first step towards understanding the formation of various phases in the presence of evaporating solvent (of mixture of solvents) is to study the thermodynamics of polymer mixtures. 
+In this area, only recently figures of merit have been introduced to capture some characteristics of mixing behavior~\cite{ye2018miscibility}, and to establish a relationship with device properties, followed by derivation of the initial design rules~\cite{ye2018}. Also, features of phase diagrams been included in the reasoning about fabrication of OSC performance~\cite{tashvigh2015novel,li2011determination}, resulting in some initial success. 
+
+In this chapter, we focus on the phase diagram of multi-component material system.
+CALPHAD software~\cite{sundman2015opencalphad} is the most widely used tool to study phase diagrams in multi-component systems, but it focuses mostly on alloys. 
+Similarly, in the area of fluid multi-component systems, similar approaches have emerged only recently~\cite{SoftMatterCEM,voskov2015ternapi}. 
+In the area of organic blends, the phase diagrams of polymeric, or small molecule, multi-component material systems have been analyzed only up to ternaries~\cite{NBB07,li2011determination}. 
+This is because the phase diagram construction for multi-component systems has high computational complexity. 
+For example, the computational complexity of the equilibrium determination based on convex envelope method (CEM) is
+\(\mathcal{O}(N_{\phi}^{(N-1)N/2})\), where \(N\) is the number of components and \(N_{\phi}\) is the number of grid points per each component~\cite{SoftMatterCEM,voskov2015ternapi}.
+
+In this chapter, the CEM method introduced in~\cite{OryllCEM,SoftMatterCEM} is used due to its reasonable computational cost up to
+quaternary systems.
+We focus on material systems under fixed pressure and temperature, and aim to determine the number of phases for a given a given multi-nary composition.
+CEM involves finding the equilibrium compositions of a multi-component system that can be understood by studying the Gibbs free energy landscape~\cite{GibbsCriteria1}. 
+A global minimum of the Gibbs free energy landscape determines a true equilibrium state of the system while a meta-stable region is determined by local minima~\cite{OryllCEM,TangentPlaneCriteria,GibbsCriteria1}. 
+CEM computes a map of composition space to its corresponding stable phases, given a free energy landscape~(comprising of composition as coordinates and energy as the height value).
+The resulting map from CEM when visualized in the composition coordinates-- referred to as the \textit{phase diagram}--reveals the coexisting phases as a function of composition~\cite{SoftMatterCEM}.
+
+We are interested in a high-throughput generation and analysis of material phase diagrams.
+In particular, for solvent based OSC manufacturing, a series of experiments needs to be performed in order to select a good solvent for a given set of molecules.
+This greatly limits the ability to search and evaluate large amount of solvents in a high-throughput manner.
+Alternatively, one can use a phase diagram as a signature of a thermodynamic compatibility of a solvent when mixed with the set of conjugated polymers.
+Techniques borrowed from machine learning allows us to study phase diagrams as points in a high-dimensional data space and analyze multiple phase diagrams together using multi-variate approaches.   
+In this chapter, multi-variate approaches are used to identify subgroups in phase diagrams, obtain lower dimensional representations of the data space, that are useful in understanding statistical design rules for solvent selection. 
+
+The rest of the chapter is arranged as follows: in \Cref{sec:cem} the convex envelope method~(CEM) to obtain a phase diagram is explained; then the CEM is applied in a high-throughput manner to generate large data sets described in \Cref{sec:htedata}; The data analysis framework is presented in \Cref{sec:pipeline} for the phase diagrams data sets and derivation of data-driven design rules for solvent selection in organic blend manufacturing are demonstrated in \Cref{sec:results}.    
